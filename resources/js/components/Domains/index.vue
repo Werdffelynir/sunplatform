@@ -5,7 +5,7 @@
         <VRow justify="space-between" class="grid">
             <div>
                 <VAppBarNavIcon>
-                    <VIcon>mdi-plus</VIcon>
+                    <VIcon>mdi-access-point-network</VIcon>
                 </VAppBarNavIcon>
             </div>
         </VRow>
@@ -16,7 +16,7 @@
                     <VCardTitle>{{domain.domain}}</VCardTitle>
                     <VCardText>domain card text</VCardText>
                     <VCardActions>
-                        <VBtn text >Click</VBtn>
+                       <VBtn text v-on="navigateTo">Click</VBtn>
                     </VCardActions>
                 </VCard>
             </VCol>
@@ -42,7 +42,11 @@
             return { }
         },
 
-        methods: { },
+        methods: {
+            navigateTo() {
+
+            }
+        },
 
         computed: {
             domains () {

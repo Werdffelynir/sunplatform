@@ -1,10 +1,8 @@
 import DashboardComponent from './components/Dashboard';
 import ProfileComponent from './components/Profile';
 import DomainsComponent from './components/Domains';
-import DomainsEditComponent from './components/DomainsEdit';
+import DomainsSettingsComponent from './components/Domains';
 import ServicesComponent from './components/Services';
-import ServiceDatabaseMysql from './components/ServiceDatabaseMysql';
-import ServiceDatabaseSqlite from './components/ServiceDatabaseSqlite';
 
 
 const routes = [
@@ -21,21 +19,13 @@ const routes = [
         path: '/domains',
         component: DomainsComponent },
     {
-        name: 'DomainsEdit',
-        path: '/domainsedit',
-        component: DomainsEditComponent },
+        name: 'DomainsSettings',
+        path: '/domains/settings',
+        component: DomainsSettingsComponent },
     {
         name: 'Services',
         path: '/services',
-        component: ServicesComponent },
-    {
-        name: 'Service Database Mysql',
-        path: '/service/database/mysqli',
-        component: ServiceDatabaseMysql },
-    {
-        name: 'Service Database Sqlite',
-        path: '/service/database/sqlite',
-        component: ServiceDatabaseSqlite },
+        component: ServicesComponent }
 ];
 
 export default routes;
