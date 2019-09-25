@@ -1,0 +1,12 @@
+@import "./variables";
+
+#login {
+    padding: 2%;
+    > div {
+        padding: 15px;
+    }
+    .logo {
+        font-family: "Nunito", "Roboto", sans-serif;
+        font-size: 2rem;
+    }
+}
