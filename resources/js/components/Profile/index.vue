@@ -1,5 +1,5 @@
 <template>
-    <div class="container">
+    <div>
         <h2>Profile settings</h2>
 
         <VCard :color="item.color" dark>

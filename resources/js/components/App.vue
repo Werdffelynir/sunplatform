@@ -16,8 +16,8 @@
 
         </VAppBar>
 
-        <VContent>
-            <VContainer fluid>
+        <VContent class="content-main">
+            <VContainer class="container-main" fluid>
 
                 <router-view></router-view>
 
@@ -42,7 +42,11 @@
         mounted () {
             this.$store.commit('profile/adduser',
                 JSON.parse(this.userData),
-                { root: true } )
+                { root: true } );
+
+            this.$store.commit('profile/addtoken',
+                this.csrfToken,
+                { root: true } );
         },
 
         data (vueAppComponent) {
@@ -59,9 +63,9 @@
             },
         },
 
-        watch: {
-            input_event(value) {}
-        },
+        // watch: {
+        //     input_event(value) {}
+        // },
 
         computed: {
             user: function () {

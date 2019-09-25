@@ -40,17 +40,21 @@
   src: local("Comfortaa Bold"), local("Comfortaa-Bold"), url(/fonts/Comfortaa-Bold.ttf?22e5f38dfe16119bc530442963b45bd1), url(/fonts/Comfortaa-Bold.ttf?22e5f38dfe16119bc530442963b45bd1) format("ttf");
 }
 
-#login {
+#auth {
   padding: 2%;
 }
 
-#login > div {
+#auth > div {
   padding: 15px;
 }
 
-#login .logo {
+#auth .logo {
   font-family: "Nunito", "Roboto", sans-serif;
   font-size: 2rem;
+}
+
+.auth-menu {
+  text-align: right;
 }
 
 html,
@@ -65,6 +69,10 @@ body {
 a {
   text-decoration: none;
   color: orange;
+}
+
+.content-main {
+  padding-right: 15px;
 }
 
 .copy span {

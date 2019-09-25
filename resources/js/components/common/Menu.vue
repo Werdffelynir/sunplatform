@@ -27,7 +27,7 @@
             <a href="/register" >
                 <VBtn text>register</VBtn>
             </a>
-            <a href="/logout" @click="logout">
+            <a href="#logout" @click="logout">
                 <VBtn text>logout</VBtn>
             </a>
         </VToolbarItems>
@@ -52,11 +52,14 @@
 
         methods: {
             logout (){
-                postData('/logout', {
-                    _token: this.csrfToken,
-                }).then(data => {
-                    // location.href = '/login';
-                }).catch(error => {console.log('ERROR:', error)});
+                const token = this.$store.getters['profile/token'];
+                if (token.length > 20) {
+                    postData('/logout', {
+                        _token: token,
+                    }).then(data => {
+                        location.href = '/login';
+                    }).catch(error => {console.log('ERROR:', error)});
+                }
             },
         },
     }
