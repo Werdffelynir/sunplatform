@@ -18,15 +18,6 @@
                 <VBtn text>services</VBtn>
             </router-link>
 
-            <a href="/password/reset" >
-                <VBtn text>password/reset</VBtn>
-            </a>
-            <a href="/login" >
-                <VBtn text>login</VBtn>
-            </a>
-            <a href="/register" >
-                <VBtn text>register</VBtn>
-            </a>
             <a href="#logout" @click="logout">
                 <VBtn text>logout</VBtn>
             </a>

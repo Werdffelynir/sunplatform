@@ -2383,7 +2383,7 @@ __webpack_require__.r(__webpack_exports__);
       passwordRules: [function (v) {
         return !!v || 'Password is required';
       }, function (v) {
-        return v.length <= 16 || 'Password must be less than 10 characters';
+        return v.length <= 24 || 'Password must be less than 24 characters';
       }],
       email: 'admin@admin.com',
       emailRules: [function (v) {
@@ -2579,15 +2579,6 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _sass_components_menu_scss__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ../../../sass/components/menu.scss */ "./resources/sass/components/menu.scss");
 /* harmony import */ var _sass_components_menu_scss__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(_sass_components_menu_scss__WEBPACK_IMPORTED_MODULE_0__);
 /* harmony import */ var _utils_request__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ../../utils/request */ "./resources/js/utils/request.js");
-//
-//
-//
-//
-//
-//
-//
-//
-//
 //
 //
 //
@@ -23599,7 +23590,7 @@ var render = function() {
                       type: "password",
                       autocomplete: "username",
                       rules: _vm.passwordRules,
-                      counter: 20,
+                      counter: 24,
                       label: "Password"
                     },
                     model: {
@@ -23936,27 +23927,6 @@ var render = function() {
             "router-link",
             { attrs: { to: "/services" } },
             [_c("VBtn", { attrs: { text: "" } }, [_vm._v("services")])],
-            1
-          ),
-          _vm._v(" "),
-          _c(
-            "a",
-            { attrs: { href: "/password/reset" } },
-            [_c("VBtn", { attrs: { text: "" } }, [_vm._v("password/reset")])],
-            1
-          ),
-          _vm._v(" "),
-          _c(
-            "a",
-            { attrs: { href: "/login" } },
-            [_c("VBtn", { attrs: { text: "" } }, [_vm._v("login")])],
-            1
-          ),
-          _vm._v(" "),
-          _c(
-            "a",
-            { attrs: { href: "/register" } },
-            [_c("VBtn", { attrs: { text: "" } }, [_vm._v("register")])],
             1
           ),
           _vm._v(" "),

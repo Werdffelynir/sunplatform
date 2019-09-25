@@ -29,7 +29,7 @@
                         autocomplete="username"
                         v-model="password"
                         :rules="passwordRules"
-                        :counter="20"
+                        :counter="24"
                         label="Password"></VTextField>
                 </VCol>
                 <VCol>
@@ -76,7 +76,7 @@
             rememberMe: true,
             passwordRules: [
                v => !!v || 'Password is required',
-               v => v.length <= 16 || 'Password must be less than 10 characters',
+               v => v.length <= 24 || 'Password must be less than 24 characters',
             ],
             email: 'admin@admin.com',
             emailRules: [

@@ -17,9 +17,9 @@ use \Illuminate\Support\Facades\Route;
 Auth::routes();
 
 Route::get('/', 'ViewController@main')
-    ->middleware('auth')
+//    ->middleware('auth')
     ->name('main');
 
 Route::get('/home', 'ViewController@main')
-    ->middleware('auth')
+//    ->middleware('auth')
     ->name('main');
