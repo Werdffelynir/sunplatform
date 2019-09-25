@@ -10,7 +10,7 @@
                         label="E-mail Address"></VTextField>
                 </VCol>
                 <VCol>
-                    <h1 class="logo">SunPlatform</h1>
+                    <h1 class="logo">Sunlight Contest Access Platform</h1>
                     <p>software platform for service management in the development process</p>
                 </VCol>
             </VRow>
@@ -20,9 +20,10 @@
                     <VTextField
                         required
                         type="password"
+                        autocomplete="username"
                         v-model="password"
                         :rules="passwordRules"
-                        :counter="10"
+                        :counter="20"
                         label="Password"></VTextField>
                 </VCol>
                 <VCol>
@@ -51,11 +52,13 @@
 
 </style>
 <script>
-
-    import {postData} from '../../utils/request';
+    import { postData } from '../../utils/request';
 
     export default {
+
         name: 'login-component',
+
+        props: ['csrf-token'],
 
         data () {return {
             valid: false,
@@ -63,9 +66,9 @@
             rememberMe: true,
             passwordRules: [
                v => !!v || 'Password is required',
-               v => v.length <= 10 || 'Password must be less than 10 characters',
+               v => v.length <= 20 || 'Password must be less than 10 characters',
             ],
-            email: '',
+            email: 'admin@admin.com',
             emailRules: [
                v => !!v || 'E-mail is required',
                v => /.+@.+/.test(v) || 'E-mail must be valid',
@@ -79,7 +82,12 @@
                         email: this.email,
                         password: this.password,
                         rememberMe: this.rememberMe,
-                    }).then(data => console.log(JSON.stringify(data))).catch(error => console.error(error));
+                        _token: this.csrfToken,
+                    }).then(data => {
+                        location.href = '/home';
+                    }).catch(error => {
+                        console.log('ERROR:',error);
+                    });
                 }
             },
         },

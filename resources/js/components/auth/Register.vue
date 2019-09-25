@@ -1,11 +1,26 @@
 <template>
-    <div class="container">
-        <VForm v-model="valid">
-            <VContainer>
-                <VRow>
-                    <VCol cols="12" md="4">
+    <VCard dark>
+
+        <h2>Register</h2>
+
+        <VForm v-model="valid" class="pa-10">
+            <VRow>
+                <VCol cols="12" md="4">
+                    <VTextField
+                        required
+                        v-model="email"
+                        :rules="emailRules"
+                        label="E-mail Address"></VTextField>
+                </VCol>
+                <VCol>
+                    <h1 class="logo">Sunlight Contest Access Platform</h1>
+                    <p>software platform for service management in the development process</p>
+                </VCol>
+            </VRow>
+
+<!--                    <VCol cols="12" md="4">
                         <VTextField
-                            v-model="firstname"
+                            v-model="name"
                             :rules="nameRules"
                             :counter="10"
                             label="First name"
@@ -15,7 +30,7 @@
 
                     <VCol cols="12" md="4">
                         <VTextField
-                            v-model="lastname"
+                            v-model="password"
                             :rules="nameRules"
                             :counter="10"
                             label="Last name"
@@ -33,9 +48,9 @@
                     </VCol>
                     <VCheckbox></VCheckbox>
                 </VRow>
-            </VContainer>
+            </VContainer>-->
         </VForm>
-    </div>
+    </VCard>
 </template>
 <style>
     .domains {
@@ -55,8 +70,8 @@
         data () {
             return {
                 valid: false,
-                firstname: '',
-                lastname: '',
+                password: '',
+                name: '',
                 nameRules: [
                     v => !!v || 'Name is required',
                     v => v.length <= 10 || 'Name must be less than 10 characters',

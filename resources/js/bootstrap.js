@@ -35,6 +35,7 @@ new Vue({
     store,
     router,
     vuetify,
+    // sessionToken: '_token',
     el: '#app',
     components: {
         'register-component': RegisterComponent,
