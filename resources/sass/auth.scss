@@ -1,6 +1,6 @@
 @import "./variables";
 
-#login {
+#auth {
     padding: 2%;
     > div {
         padding: 15px;
@@ -9,4 +9,7 @@
         font-family: "Nunito", "Roboto", sans-serif;
         font-size: 2rem;
     }
+}
+.auth-menu {
+    text-align: right;
 }

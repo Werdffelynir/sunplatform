@@ -1,6 +1,6 @@
 @import "./fonts";
 @import "./variables";
-@import "./login";
+@import "./auth";
 
 html, body {
     width: 100vw;
@@ -13,6 +13,10 @@ html, body {
 a {
     text-decoration: none;
     color: orange;
+}
+
+.content-main {
+    padding-right: 15px;
 }
 
 .copy span {
