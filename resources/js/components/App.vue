@@ -16,8 +16,8 @@
 
         </VAppBar>
 
-        <VContent>
-            <VContainer fluid>
+        <VContent class="content-main">
+            <VContainer class="container-main" fluid>
 
                 <router-view></router-view>
 
@@ -37,7 +37,20 @@
 
         name: 'app-component',
 
-        data: (vueAppComponent) => {
+        props: ['csrf-token', 'user-data'],
+
+        mounted () {
+            this.$store.commit('profile/adduser',
+                JSON.parse(this.userData),
+                { root: true } );
+
+            this.$store.commit('profile/addtoken',
+                this.csrfToken,
+                { root: true } );
+        },
+
+        data (vueAppComponent) {
+
             return {
                 columns: [...new Array(16)],
                 sidebar: true,
@@ -50,12 +63,16 @@
             },
         },
 
-        watch: {
-            input_event(value) {
+        // watch: {
+        //     input_event(value) {}
+        // },
+
+        computed: {
+            user: function () {
+                return this.$store.getters['profile/user']
             }
         },
 
-        computed: {},
         components: {
             'sidebar-component': SidebarComponent,
             'menu-component': MenuComponent,

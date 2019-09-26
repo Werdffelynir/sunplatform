@@ -10,8 +10,8 @@
                 </VAvatar>
             </VRow>
             <div class="text-center">
-                <div>User Name</div>
-                <div>user@mail.com</div>
+                <div>{{user.name}}</div>
+                <div>{{user.email}}</div>
             </div>
         </div>
 
@@ -66,5 +66,16 @@
                 ],
             }
         },
+        // mounted: function() {
+        //     user: function () {
+        //         return this.$store.getters['profile/getUser']
+        //     }
+        // }
+        computed: {
+            user: function () {
+                return this.$store.getters['profile/getUser']
+            }
+        },
+
     }
 </script>

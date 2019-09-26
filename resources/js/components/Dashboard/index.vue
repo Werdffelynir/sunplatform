@@ -1,6 +1,5 @@
 <template>
-    <div class="container">
-
+    <div>
         <VRow>
             <VCol>
                 <VCard>

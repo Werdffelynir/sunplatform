@@ -1,9 +1,8 @@
 @extends('layouts.app')
 
 @section('content')
-    <app-component />
-    
-    <form id="logout-form" action="{{ route('logout') }}" method="POST" style="display: none;">
-        @csrf
-    </form>
+    <app-component
+        csrf-token="{{ csrf_token() }}"
+        user-data=" {{ json_encode($user) }}"
+    />
 @endsection

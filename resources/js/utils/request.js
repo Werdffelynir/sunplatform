@@ -13,7 +13,7 @@ export const postData = function (url = '', data = {}) {
         redirect: 'follow', // manual, *follow, error
         referrer: 'no-referrer', // no-referrer, *client
         body: JSON.stringify(data),
-    }).then(response => response.json());
+    }).then(response => response);
 
 };
 

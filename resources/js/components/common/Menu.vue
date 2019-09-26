@@ -18,16 +18,7 @@
                 <VBtn text>services</VBtn>
             </router-link>
 
-            <a href="/password/reset" >
-                <VBtn text>password/reset</VBtn>
-            </a>
-            <a href="/login" >
-                <VBtn text>login</VBtn>
-            </a>
-            <a href="/register" >
-                <VBtn text>register</VBtn>
-            </a>
-            <a href="/logout" onclick="event.preventDefault(); document.getElementById('logout-form').submit();">
+            <a href="#logout" @click="logout">
                 <VBtn text>logout</VBtn>
             </a>
         </VToolbarItems>
@@ -38,6 +29,7 @@
 <script>
 
     import '../../../sass/components/menu.scss';
+    import { postData } from '../../utils/request';
 
     export default {
 
@@ -47,6 +39,19 @@
             return {
                 items: [],
             }
+        },
+
+        methods: {
+            logout (){
+                const token = this.$store.getters['profile/token'];
+                if (token.length > 20) {
+                    postData('/logout', {
+                        _token: token,
+                    }).then(data => {
+                        location.href = '/login';
+                    }).catch(error => {console.log('ERROR:', error)});
+                }
+            },
         },
     }
 </script>

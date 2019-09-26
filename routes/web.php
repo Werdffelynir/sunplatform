@@ -16,9 +16,14 @@ use \Illuminate\Support\Facades\Route;
 
 Auth::routes();
 
-Route::get('/', 'ViewController@main')->name('main');
-Route::get('/home', 'ViewController@main')->name('main');
-Route::get('/dashboard', 'ViewController@dashboard')->name('dashboard');
-Route::get('/profile', 'ViewController@profile')->name('profile');
-Route::get('/domains', 'ViewController@domains')->name('domains');
-Route::get('/services', 'ViewController@services')->name('services');
+Route::get('/', 'ViewController@main')
+//    ->middleware('auth')
+    ->name('main');
+
+Route::get('/home', 'ViewController@main')
+//    ->middleware('auth')
+    ->name('main');
+
+Route::get('/profile', 'ViewController@main')->name('main');
+Route::get('/domains', 'ViewController@main')->name('main');
+Route::get('/services', 'ViewController@main')->name('main');
