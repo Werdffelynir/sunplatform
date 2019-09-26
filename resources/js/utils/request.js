@@ -1,5 +1,5 @@
 
-export const postData = function (url = '', data = {}) {
+export const postData = function (url = '', data = {}, headers = {}) {
 
     return fetch(url, {
         method: 'POST', // *GET, POST, PUT, DELETE, etc.
@@ -9,6 +9,7 @@ export const postData = function (url = '', data = {}) {
         headers: {
             'Content-Type': 'application/json',
             // 'Content-Type': 'application/x-www-form-urlencoded',
+            ...headers,
         },
         redirect: 'follow', // manual, *follow, error
         referrer: 'no-referrer', // no-referrer, *client
@@ -16,5 +17,7 @@ export const postData = function (url = '', data = {}) {
     }).then(response => response);
 
 };
+
+export const csrfToken = () => document.querySelector('[name="csrf-token"]').getAttribute('content');
 
 

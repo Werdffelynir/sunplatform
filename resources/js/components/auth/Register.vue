@@ -68,7 +68,6 @@
                     <VBtn v-on:click="send">Register</VBtn>
                 </VCol>
             </VRow>
-
         </VForm>
     </VCard>
 </template>
@@ -86,6 +85,8 @@
         },
 
         data () {
+
+            console.log('csrfToken', this.csrfToken);
             return {
                 valid: false,
                 password: '',
@@ -108,11 +109,13 @@
                     v => !!v || 'E-mail is required',
                     v => /.+@.+/.test(v) || 'E-mail must be valid',
                 ],
+                error: '',
             }
         },
 
         methods: {
             send: function (vueAppContainer) {
+
                 const data = {
                     name: this.name,
                     email: this.email,
@@ -120,14 +123,21 @@
                     password_confirmation: this.passwordConfirm,
                     _token: this.csrfToken,
                 };
+
                 if (this.valid) {
-                    postData('/register', data).then(data => {
-                        location.href = '/login';
+                    postData('/register', data, {'X-CSRF-TOKEN': this.csrfToken}).then(response => {
+                        console.log('response', response);
+                        if (response.ok) {
+                            // location.href = '/login';
+                        } else {
+                            this.error = `Server error: [Code${response.status}] ${response.statusText}`;
+                        }
                     }).catch(error => {
                         console.log('ERROR:',error);
                     });
+
                 }
-            }
+            },
         },
         computed: {
 

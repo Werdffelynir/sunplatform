@@ -23,3 +23,13 @@ Route::get('/', 'ViewController@main')
 Route::get('/home', 'ViewController@main')
 //    ->middleware('auth')
     ->name('main');
+
+
+Route::get('/profile', 'ViewController@main')->name('main');
+Route::get('/profile/settings', 'ViewController@main')->name('main');
+Route::get('/domains', 'ViewController@main')->name('main');
+Route::get('/domains/register', 'ViewController@main')->name('main');
+Route::get('/domains/settings', 'ViewController@main')->name('main');
+Route::get('/services', 'ViewController@main')->name('main');
+Route::get('/services/register', 'ViewController@main')->name('main');
+Route::get('/services/settings', 'ViewController@main')->name('main');

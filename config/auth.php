@@ -44,8 +44,9 @@ return [
         'api' => [
             'driver' => 'token',
             'provider' => 'users',
-            'hash' => false,
+            'hash' => true,
         ],
+
     ],
 
     /*
@@ -99,5 +100,6 @@ return [
             'expire' => 60,
         ],
     ],
+
 
 ];

@@ -1,14 +1,17 @@
 <template>
     <div class="container">
-        <h2>Domains</h2>
 
-        <VRow justify="space-between" class="grid">
-            <div>
-                <VAppBarNavIcon>
-                    <VIcon>mdi-access-point-network</VIcon>
-                </VAppBarNavIcon>
-            </div>
-        </VRow>
+        <VToolbar>
+            <VToolbarTitle>Registered Domains</VToolbarTitle>
+            <div class="flex-grow-1"></div>
+            <VToolbarItems></VToolbarItems>
+            <router-link to="/domains/register">
+            <VBtn icon>
+                <VIcon>mdi-plus-circle</VIcon>
+            </VBtn>
+            </router-link>
+        </VToolbar>
+
         <VRow v-for="domain in domains" :key="domain.domain + domain.id">
             <VCol>
                 <VCard>

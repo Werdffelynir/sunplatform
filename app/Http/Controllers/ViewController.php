@@ -4,10 +4,15 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Str;
 
 class ViewController extends Controller
 {
     public function main() {
+
+//        var_dump(Auth::user());
+////
+//        die;
         $user = [
             'name' => 'Guest Name',
             'email' => 'guest@email.com',
