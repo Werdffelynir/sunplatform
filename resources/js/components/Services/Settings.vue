@@ -31,14 +31,14 @@
     import store from '../../store/DomainModule';
 
     export default {
-        name: 'domainssettings-component',
+        name: 'servicessettings-component',
         mounted() {
             console.log('Component mounted.')
         },
         computed: {
-          showName() {
-              return store.state.domainName;
-          }
+            showName() {
+                return store.state.domainName;
+            }
         },
         data() {
             return {
