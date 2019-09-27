@@ -40,15 +40,15 @@
   src: local("Comfortaa Bold"), local("Comfortaa-Bold"), url(/fonts/Comfortaa-Bold.ttf?22e5f38dfe16119bc530442963b45bd1), url(/fonts/Comfortaa-Bold.ttf?22e5f38dfe16119bc530442963b45bd1) format("ttf");
 }
 
-#auth {
+.auth-form {
   padding: 2%;
 }
 
-#auth > div {
+.auth-form > div {
   padding: 15px;
 }
 
-#auth .logo {
+.auth-form .logo {
   font-family: "Nunito", "Roboto", sans-serif;
   font-size: 2rem;
 }

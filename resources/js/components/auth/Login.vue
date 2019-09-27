@@ -1,5 +1,5 @@
 <template>
-    <VCard dark>
+    <VCard dark max-width="800" class="auth-form m-auto">
 
         <div class="auth-menu">
             <a href="/login" >Login</a> |
@@ -44,7 +44,7 @@
 
             <VRow>
                 <VCol alignSelf="end" class="text-right">
-                    <VBtn v-on:click="send">Login</VBtn>
+                    <VBtn v-on:click="send">Login</VBtn> {{error}}
                 </VCol>
                 <VCol>
                     <VBtn text>Forgot Your Password?</VBtn>
@@ -62,15 +62,16 @@
 
 </style>
 <script>
-    import { postData } from '../../utils/request';
+    import { requestPost } from '../../utils/request';
 
     export default {
 
         name: 'login-component',
 
-        props: ['csrf-token'],
+        props: ['csrf'],
 
         data () {return {
+            error: '',
             valid: false,
             password: '',
             rememberMe: true,
@@ -95,11 +96,15 @@
                 };
 
                 if (this.valid) {
-                    postData('/login', data).then(data => {
-                        location.href = '/home';
+/*                    requestPost('/login', data).then(response => {
+                        if (response.ok)
+                            location.href = '/home';
+                        else
+                            this.error = `Server error: [Code${response.status}] ${response.statusText}`;
+
                     }).catch(error => {
                         console.log('ERROR:',error);
-                    });
+                    });*/
                 }
             },
         },

@@ -5,9 +5,19 @@ import DomainsSettingsComponent from './components/Domains/Settings';
 import DomainsRegisterComponent from './components/Domains/Register';
 import ServicesSettingsComponent from './components/Services/Settings';
 import ServicesComponent from './components/Services';
+import LoginComponent from './components/auth/Login.vue';
+import RegisterComponent from './components/auth/Register.vue';
 
 
 const routes = [
+    {
+        name: 'Login',
+        path: '/login',
+        component: LoginComponent },
+    {
+        name: 'Register',
+        path: '/register',
+        component: RegisterComponent },
     {
         name: 'Dashboard',
         path: '/',

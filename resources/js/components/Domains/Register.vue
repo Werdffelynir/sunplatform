@@ -34,7 +34,7 @@
 </template>
 <script>
 
-    import { csrfToken, postData } from '../../utils/request';
+    // import { csrfToken, requestPost } from '../../utils/request';
 
     export default {
 
@@ -69,11 +69,11 @@
                 };
 
                 if (this.valid) {
-                    postData('/api/domains/register', data).then((response) => {
+/*                    postData('/api/domains/register', data).then((response) => {
                         console.log('response:',data,response);
                     }).then((error) => {
                         console.log('error:',error);
-                    })
+                    })*/
                 }
             },
 

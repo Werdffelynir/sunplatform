@@ -29,7 +29,7 @@
 <script>
 
     import '../../../sass/components/menu.scss';
-    import { postData } from '../../utils/request';
+    import { requestPost } from '../../utils/request';
 
     export default {
 
@@ -45,11 +45,11 @@
             logout (){
                 const token = this.$store.getters['profile/token'];
                 if (token.length > 20) {
-                    postData('/logout', {
-                        _token: token,
-                    }).then(data => {
-                        location.href = '/login';
-                    }).catch(error => {console.log('ERROR:', error)});
+                    // postData('/logout', {
+                    //     _token: token,
+                    // }).then(data => {
+                    //     location.href = '/login';
+                    // }).catch(error => {console.log('ERROR:', error)});
                 }
             },
         },

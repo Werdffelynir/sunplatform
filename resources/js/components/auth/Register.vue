@@ -1,6 +1,5 @@
 <template>
-    <VCard dark>
-
+    <VCard dark max-width="800" class="auth-form m-auto">
         <div class="auth-menu">
             <a href="/login" >Login</a> |
             <a href="/register" >Register</a>
@@ -40,7 +39,7 @@
                     <VTextField
                         required
                         type="password"
-                        autocomplete="username"
+                        autocomplete=""
                         v-model="password"
                         :rules="passwordRules"
                         :counter="16"
@@ -54,11 +53,11 @@
                     <VTextField
                         required
                         type="password"
-                        autocomplete="username"
+                        autocomplete=""
                         v-model="passwordConfirm"
-                        :rules="passwordRules"
+                        :rules="passwordConfirmRules"
                         :counter="16"
-                        label="Password"></VTextField>
+                        label="Confirm Password"></VTextField>
                 </VCol>
                 <VCol></VCol>
             </VRow>
@@ -71,22 +70,25 @@
         </VForm>
     </VCard>
 </template>
+<style>
+    .auth-form{
+        margin: 0 auto;
+    }
+</style>
 <script>
 
-    import { postData } from '../../utils/request';
+    import { requestPost } from '../../utils/request';
 
     export default {
         name: 'register-component',
 
-        props: ['csrf-token'],
+        props: ['csrf'],
 
         components: {
 
         },
 
         data () {
-
-            console.log('csrfToken', this.csrfToken);
             return {
                 valid: false,
                 password: '',
@@ -97,7 +99,7 @@
                 passwordConfirm: '',
                 passwordConfirmRules: [
                     v => !!v || 'Confirm Password is required',
-                    v => v === this.password || 'Confirm Password must be equal with Password',
+                    (v) => v === this.password || 'Confirm Password must be equal with Password',
                 ],
                 name: '',
                 nameRules: [
@@ -115,17 +117,31 @@
 
         methods: {
             send: function (vueAppContainer) {
-
                 const data = {
                     name: this.name,
                     email: this.email,
                     password: this.password,
-                    password_confirmation: this.passwordConfirm,
-                    _token: this.csrfToken,
+                    // password_confirmation: this.passwordConfirm,
+                    // _token: this.csrfToken,
                 };
 
+                const headers = {'X-CSRF-TOKEN': this.csrf};
+
+                requestPost('/api/register', data)
+                    .then(response => {
+                        console.log('response:', response);
+                    })
+                    .catch(error => {
+                        console.log('ERROR:', error);
+                    });
+
+
+                // console.log(data);
+
                 if (this.valid) {
-                    postData('/register', data, {'X-CSRF-TOKEN': this.csrfToken}).then(response => {
+                    // , {'X-CSRF-TOKEN': this.csrfToken}
+/*
+                    postData('/register', data).then(response => {
                         console.log('response', response);
                         if (response.ok) {
                             // location.href = '/login';
@@ -135,6 +151,7 @@
                     }).catch(error => {
                         console.log('ERROR:',error);
                     });
+*/
 
                 }
             },

@@ -1,6 +1,7 @@
 <?php
 
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
 use \Illuminate\Support\Facades\Route;
 
 /*
@@ -18,5 +19,20 @@ Route::middleware('auth:api')->get('/user', function (Request $request) {
     return $request->user();
 });
 
-Route::middleware('auth:api')->post('/domains/register', 'Api\DomainsController@register');
-Route::middleware('auth:api')->post('/domains/settings', 'Api\DomainsController@settings');
+Route::group(['namespace' => 'Api'], function () {
+
+    Route::group(['namespace' => 'Auth'], function () {
+        Route::post('register', 'RegisterController');
+        Route::post('login', 'LoginController');
+        Route::post('logout', 'LogoutController')
+            ->middleware('auth:api');
+    });
+
+    Route::group(['namespace' => 'Profile'], function () {
+        Route::post('profile', 'ProfileController');
+    });
+
+    Route::group(['namespace' => 'Domains'], function () {
+        Route::post('domains', 'DomainsController');
+    });
+});

@@ -1,6 +1,6 @@
 @import "./variables";
 
-#auth {
+.auth-form {
     padding: 2%;
     > div {
         padding: 15px;
@@ -10,6 +10,8 @@
         font-size: 2rem;
     }
 }
+
 .auth-menu {
     text-align: right;
 }
+

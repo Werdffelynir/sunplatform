@@ -14,16 +14,13 @@ use \Illuminate\Support\Facades\Route;
 |
 */
 
-Auth::routes();
+//Auth::routes();
 
-Route::get('/', 'ViewController@main')
-//    ->middleware('auth')
-    ->name('main');
+Route::get('/', 'ViewController@main')->name('main');
+Route::get('/home', 'ViewController@main')->name('main');
 
-Route::get('/home', 'ViewController@main')
-//    ->middleware('auth')
-    ->name('main');
-
+Route::get('/login', 'ViewController@main')->name('main');
+Route::get('/register', 'ViewController@main')->name('main');
 
 Route::get('/profile', 'ViewController@main')->name('main');
 Route::get('/profile/settings', 'ViewController@main')->name('main');

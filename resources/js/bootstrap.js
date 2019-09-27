@@ -6,9 +6,6 @@ import Vuex from 'vuex';
 import VueRouter from 'vue-router';
 import VueAxios from 'vue-axios';
 
-import LoginComponent from './components/auth/Login.vue';
-import RegisterComponent from './components/auth/Register.vue';
-import MenuComponent from './components/common/Menu.vue';
 import AppComponent from './components/App.vue';
 import vuetify from './plugins/vuetify'
 import store from './store';
@@ -37,9 +34,6 @@ new Vue({
     vuetify,
     el: '#app',
     components: {
-        'register-component': RegisterComponent,
-        'login-component': LoginComponent,
-        'menu-component': MenuComponent,
         'app-component': AppComponent,
     },
 
@@ -49,10 +43,8 @@ new Vue({
         }
     },
     methods: {
-        goBack () {
-            window.history.length > 1
-                ? this.$router.go(-1)
-                : this.$router.push('/')
+        historyBack () {
+            window.history.length > 1 ? this.$router.go(-1) : this.$router.push('/')
         }
     }
 });

@@ -8,6 +8,7 @@ export default {
             email: '',
             create_at: ''
         },
+        auth: true,
         token: '',
     },
 
@@ -16,6 +17,8 @@ export default {
             return { ...state.user } },
         token(state) {
             return state.token },
+        auth(state) {
+            return state.auth },
     },
     mutations: {
         adduser(state, payload) {
