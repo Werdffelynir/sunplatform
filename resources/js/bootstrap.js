@@ -40,7 +40,7 @@ new Vue({
         'register-component': RegisterComponent,
         'login-component': LoginComponent,
         'menu-component': MenuComponent,
-        'app-component': AppComponent,
+        'app-component': AppComponent
     },
 
     computed: {

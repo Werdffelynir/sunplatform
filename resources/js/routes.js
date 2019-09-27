@@ -4,6 +4,7 @@ import DomainsComponent from './components/Domains';
 import DomainsSettingsComponent from './components/Domains/Settings';
 import ServicesSettingsComponent from './components/Services/Settings';
 import ServicesComponent from './components/Services';
+import EditorComponent from './components/Editor';
 
 
 const routes = [
@@ -30,7 +31,11 @@ const routes = [
     {
         name: 'Services',
         path: '/services',
-        component: ServicesComponent }
+        component: ServicesComponent },
+    {
+        name: 'Editor',
+        path: '/editor',
+        component: EditorComponent }
 ];
 
 export default routes;

@@ -51,6 +51,7 @@
 <script>
 
     import '../../../sass/components/sidebar.scss';
+    import Avatar from '../common/Avatar';
 
     export default {
 
@@ -76,6 +77,10 @@
                 return this.$store.getters['profile/getUser']
             }
         },
+
+        components: {
+            'avatar-component': Avatar,
+        }
 
     }
 </script>
