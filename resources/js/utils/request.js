@@ -1,3 +1,5 @@
+import {serialize} from './utils';
+
 const method = {
     get: 'GET',
     post: 'POST',
@@ -21,40 +23,35 @@ const configuration = {
     // no-referrer, *client
     referrer: 'no-referrer',
     // data query string
-    body: '',
+    body: null,
 };
 
 const request = async function (url, _config) {
-
     const config = {...configuration, ..._config};
     if (_config.headers) {
         config.headers =  {...configuration.headers, ..._config.headers};
     }
-    // async await
-    // console.log('config', config);
-    // console.log('response', response);
     return await fetch(url, config).then(async response => {
-        // console.log(await response.json());
         return await response.json()
     });
 };
 
 
-export const requestPost = function (url = '', data = {}, headers = {}) {
+export const requestPost = function (url = '', data = null, headers = {}) {
     return request(url, {
         method: method.post,
-        body: JSON.stringify(data),
+        body: data ? JSON.stringify(data) : data,
         headers,
     });
 };
 
-export const requestGet = function (url = '', data = {}, headers = {}) {
-    return request(url, {
+export const requestGet = function (url = '', data = null, headers = {}) {
+    data = data ? '?' + serialize(data) : '';
+    return request(url + data, {
         method: method.get,
-        body: JSON.stringify(data),
+        headers,
     });
 };
 
-export const csrfToken = () => document.querySelector('[name="csrf-token"]').getAttribute('content');
 
 

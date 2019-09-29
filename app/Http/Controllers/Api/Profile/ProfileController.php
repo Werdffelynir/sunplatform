@@ -15,9 +15,20 @@ class ProfileController extends Controller
      * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
      */
-    public function __invoke(Request $request)
+/*    public function __invoke(Request $request)
     {
-//        $credentials = $request->only('email', 'password');
-//        $token = Auth::user()->createToken(config('app.name'));
+        $credentials = $request->only('email', 'password');
+        $token = Auth::user()->createToken(config('app.name'));
+        // return view('user.profile', ['user' => User::findOrFail($id)]);
+    }*/
+
+    public function __invoke($request)
+    {
+        $token = $request->only('token');
+
+        return response()->json([
+            '$request' => $request,
+            '$token' => $token,
+        ]);
     }
 }

@@ -1,7 +1,7 @@
 <template>
 
     <VApp>
-        <div v-if="isAuthorizedUser">
+        <div v-if="gettersIsAuthorizedUser">
             <VNavigationDrawer app clipped-x :width="sidebar ? 250 : 0">
                 <sidebar-component />
             </VNavigationDrawer>
@@ -10,6 +10,9 @@
                 <template v-if="$vuetify.breakpoint.smAndUp">
                     <VBtn v-on:click="sidebarToggle">
                         <VIcon>mdi-view-parallel</VIcon>
+                    </VBtn>
+                    <VBtn v-on:click="initRequest">
+                        <VIcon>mdi-server-network</VIcon>
                     </VBtn>
                 </template>
                 <VSpacer></VSpacer>
@@ -34,31 +37,35 @@
 <script>
     import SidebarComponent from './common/Sidebar.vue';
     import MenuComponent from './common/Menu.vue';
+    import {requestPost,requestGet} from '../utils/request';
     // import LoginComponent from './auth/Login.vue';
     // import RegisterComponent from './auth/Register.vue';
 
     export default {
         name: 'app-component',
 
-        props: ['csrf', 'component'],
+        props: ['csrf'],
 
         mounted () {
-/*            this.$store.commit('profile/adduser',
-                JSON.parse(this.userData),
-                { root: true } );
-
-            this.$store.commit('profile/addtoken',
-                this.csrfToken,
-                { root: true } );*/
+            // console.log('gettersIsAuthorizedUser', this.gettersIsAuthorizedUser);
+            // console.log('gettersUser', this.gettersUser);
+            // if (!this.gettersIsAuthorizedUser && this.$route.path !== '/login') {
+            //     // this.$router.push('/login');
+            //     // location.href = '/login';
+            // }
         },
 
         data (vueAppComponent) {
+            this.$store.subscribe((payload, state) => {
+               // if (type === 'profile/addCredentials')
+                    console.log('subscribe type >> ', state);
+                    console.log('subscribe payload >> ', payload);
+                    console.log('subscribe payload >> ', payload.type === "profile/addCredentials" );
+            });
+
             return {
                 columns: [...new Array(16)],
                 sidebar: true,
-                // component: this.component,
-                // csrf: this.csrf,
-                path: this.$route.path,
             };
         },
 
@@ -66,20 +73,26 @@
             sidebarToggle() {
                 this.sidebar = !this.sidebar;
             },
+            initRequest() {
+                console.log('gettersCredentials', this.gettersCredentials);
+
+                requestGet('/api/profile', null, {}).then((response)=>{
+                    console.log('response', response);
+
+                }).catch((err)=>{console.log('err', err)})
+            },
         },
 
-        // watch: {
-        //     input_event(value) {}
-        // },
+        watch: {},
 
         computed: {
-            user: function () {
-                return this.$store.getters['profile/user']
+
+            // getters
+            gettersUser() {return this.$store.getters['profile/user']},
+            gettersIsAuthorizedUser() {
+                return this.$store.getters['profile/isAuthorizedUser'] || true
             },
-            isAuthorizedUser: function () {
-                return this.$store.getters['profile/auth'] &&
-                    !['/login','/register'].includes(this.path);
-            },
+            gettersCredentials() {return this.$store.getters['profile/credentials']},
         },
 
         components: {

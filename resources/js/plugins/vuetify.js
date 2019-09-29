@@ -42,6 +42,7 @@ import Vuetify, {
     VTextarea,
     VCheckbox,
     VSwitch,
+    VSnackbar,
 } from 'vuetify/lib';
 import 'vuetify/dist/vuetify.css';
 import '@mdi/font/css/materialdesignicons.css';
@@ -97,6 +98,7 @@ Vue.use(Vuetify, {
         VTextarea,
         VCheckbox,
         VSwitch,
+        VSnackbar,
     },
     directives: {
         Ripple,

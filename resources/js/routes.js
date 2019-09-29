@@ -6,6 +6,7 @@ import DomainsRegisterComponent from './components/Domains/Register';
 import ServicesSettingsComponent from './components/Services/Settings';
 import ServicesComponent from './components/Services';
 import LoginComponent from './components/auth/Login.vue';
+import LogoutComponent from './components/auth/Logout.vue';
 import RegisterComponent from './components/auth/Register.vue';
 
 
@@ -14,6 +15,10 @@ const routes = [
         name: 'Login',
         path: '/login',
         component: LoginComponent },
+/*    {
+        name: 'Logout',
+        path: '/logout',
+        component: LogoutComponent },*/
     {
         name: 'Register',
         path: '/register',

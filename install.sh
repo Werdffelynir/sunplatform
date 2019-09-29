@@ -23,3 +23,14 @@ if [ -d "$DIR_PUBLIC" ]; then
 else
   echo "Error: folder not find ${DIR_PUBLIC}"
 fi
+
+composer install
+
+npm i
+
+php artisan migrate
+
+php artisan passport:install
+
+php artisan config:clear
+
