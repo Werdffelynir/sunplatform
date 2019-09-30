@@ -20,5 +20,9 @@
     <div id="app">
         @yield('content')
     </div>
+
+    <script>
+        {{--window.Laravel = '{{['csrfToken' => csrf_token(),'apiToken' => $currentUser->api_token ?? null, ]}}';--}}
+    </script>
 </body>
 </html>

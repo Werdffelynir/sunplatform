@@ -68,9 +68,9 @@
         },
 
         computed: {
-            user: function () {
+            user() {
                 return this.$store.getters['profile/user']
-            }
+            },
         },
 
     }

@@ -8,6 +8,7 @@ import Vuetify, {
     VCard,
     VCardTitle,
     VCardText,
+    VChip,
     VCardActions,
     VContainer,
     VRow,
@@ -41,6 +42,7 @@ import Vuetify, {
     VTextarea,
     VCheckbox,
     VSwitch,
+    VSnackbar,
 } from 'vuetify/lib';
 import 'vuetify/dist/vuetify.css';
 import '@mdi/font/css/materialdesignicons.css';
@@ -63,6 +65,7 @@ Vue.use(Vuetify, {
         VCardTitle,
         VCardText,
         VCardActions,
+        VChip,
         VContainer,
         VRow,
         VCol,
@@ -95,6 +98,7 @@ Vue.use(Vuetify, {
         VTextarea,
         VCheckbox,
         VSwitch,
+        VSnackbar,
     },
     directives: {
         Ripple,
