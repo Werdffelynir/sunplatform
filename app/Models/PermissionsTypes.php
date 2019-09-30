@@ -1,25 +1,21 @@
 <?php
 
-namespace App;
+namespace App\Models;
 
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Notifications\Notifiable;
 
-class DomainsTypes extends Model
+class PermissionsTypes extends Model
 {
     use Notifiable;
 
-    protected $table = 'domains_types';
+    protected $table = 'permissions_types';
 
     protected $fillable = [
         'id',
-        'id_domain',
-        'id_service',
         'id_user',
+        'id_permission',
         'status',
     ];
 
-    protected $hidden = [];
-
-    protected $casts = [];
 }

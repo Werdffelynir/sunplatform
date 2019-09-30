@@ -13,7 +13,8 @@ CREATE TABLE `domains` (
   `address` varchar(45) DEFAULT NULL,
   `created_at` timestamp NULL DEFAULT CURRENT_TIMESTAMP,
   `actived_to` timestamp NULL DEFAULT NULL,
-  PRIMARY KEY (`id`)
+  PRIMARY KEY (`id`),
+  UNIQUE KEY `address_UNIQUE` (`address`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
 
