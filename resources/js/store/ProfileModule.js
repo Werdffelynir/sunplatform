@@ -14,7 +14,8 @@ export default {
         user: {
             name: '',
             email: '',
-            create_at: ''
+            create_at: '',
+            avatar: '',
         },
         isAuthorizedUser: false,
         credentials: null,

@@ -149,14 +149,14 @@
             // this.avatar = profiledata.avatar;
         },
         methods: {
-            ...mapMutations('profile', ['updateUser']),
+            ...mapMutations('profile', ['addUser']),
 
             saveProfileData() {
                 console.log(
-                    this.userForm,this.user
+                    this.userForm, this.user
                 );
                 if (this.userForm.valid) {
-                    this.updateUser(this.user)
+                    this.addUser(this.user)
                 }
             },
             onChange (image) {
@@ -172,7 +172,7 @@
         },
         computed: {
             user() {
-                return this.$store.getters['profile/getUser'];
+                return this.$store.getters['profile/user'];
             },
         },
         components: {

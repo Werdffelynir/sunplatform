@@ -63,12 +63,7 @@
     },
         computed: {
             avatar() {
-               // return this.$store.getters['profile/getUser'].avatar || avatarImages
-                if (this.$store.getters['profile/getUser'].avatar) {
-                    return this.$store.getters['profile/getUser'].avatar
-                } else {
-                    return avatarImages
-                }
+                return this.$store.getters['profile/user'].avatar || avatarImages;
             }
 
         },
@@ -88,7 +83,7 @@
                     if (!err) {
                         reader.onloadend = () => {
 
-                            this.$store.commit('profile/updateUser', {
+                            this.$store.commit('profile/addUser', {
                                 avatar: reader.result,
                             });
 

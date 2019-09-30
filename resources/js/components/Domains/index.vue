@@ -21,7 +21,8 @@
                     <VCardText class="pt-0">active to: {{domain.active_to}}</VCardText>
                     <VDivider></VDivider>
                     <VCardActions>
-                       <VBtn text v-on:click="navigateToDomainSettings">Settings</VBtn>
+                       <VBtn text v-on:click="navigateToDomainSettings(domain.id)">Settings</VBtn>
+<!--                        <router-link to="domains/settings">Settings</router-link>-->
                     </VCardActions>
                 </VCard>
             </VCol>
@@ -51,6 +52,9 @@
 </style>
 <script>
 
+    import Settings from "./Settings"
+    import { mapMutations } from 'vuex';
+
     export default {
         name: 'domains-component',
 
@@ -63,8 +67,10 @@
             }
         },
         methods: {
-            navigateToDomainSettings() {
+            ...mapMutations('domains', ['setIndex']),
+            navigateToDomainSettings(id) {
                 this.$router.push('domains/settings')
+                this.setIndex(id);
             },
             navigateToServiceSettings() {
                 this.$router.push('services/settings')

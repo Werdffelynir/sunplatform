@@ -1,98 +1,59 @@
 <template>
-    <div class="container">
-
-        <VCard dark>
-
-            <VCardText>
-                <VForm v-model="valid">
-                    <VRow >
-                        <VCol cols="1" md="1" align-self="center" class="text-right">
-                            <VIcon>mdi-information</VIcon>
-                        </VCol>
-                        <VCol cols="11" md="6">
-                            <h1>Register new Domain name</h1>
-
-                            <p>Sunlight Contest Access Platform software platform for service management in the development process. Lorem ipsum dolor sit amet, consectetur adipisicing elit. Accusamus amet blanditiis doloribus enim iste laborum necessitatibus obcaecati pariatur perferendis praesentium quod ratione ullam, voluptates. Suscipit?</p>
-                        </VCol>
-                    </VRow>
-
-                    <VRow align="stretch">
-                        <VCol cols="1" md="1" align-self="center" class="text-right">
-                            <VIcon>mdi-domain</VIcon>
-                        </VCol>
-                        <VCol cols="11" md="4">
-                            <VTextField
-                                required
-                                v-model="domain"
-                                :rules="domainRules"
-                                :counter="24"
-                                label="Domain name (or IP address)"></VTextField>
-                        </VCol>
-                    </VRow>
-
-                    <VBtn>Register</VBtn>
-
-                </VForm>
-
-            </VCardText>
-        </VCard>
-
-<!--
+    <VContainer>
+        <h2>Domain settings</h2>
         <VCard :color="item.color" dark>
-            <VListItem three-line>
-                <VListItemContent class="align-self-start">
-                    <VListItemTitle class="headline mb-2" v-text="showName"></VListItemTitle>
-
-                    alias <VListItemSubtitle v-text="item.alias"></VListItemSubtitle>
-                    dns 1 <VListItemSubtitle v-text="item.dns_1"></VListItemSubtitle>
-                    dns 2<VListItemSubtitle v-text="item.dns_2"></VListItemSubtitle>
+<VRow>
+    <VCol>
+                    <VTextField
+                        label="Domain Name"
+                        :placeholder="alias"
+                        class="ma-2"
+                        hide-details
+                    ></VTextField>
+    </VCol>
+</VRow>
+                    <VRow>
+                        <VCol>
+                    <VSwitch
+                        v-model="switcher"
+                        class="ma-2"
+                        :label="`${switcher ? 'ON' : 'OFF'}`"
+                        hide-detail
+                    ></VSwitch>
+                        </VCol>
+                    </VRow>
 
                     <VCardActions>
-                        <VBtn text>Edit</VBtn>
+                        <VBtn>Save</VBtn>
                     </VCardActions>
-
-                </VListItemContent>
-
-                <VListItemAvatar size="125" tile>
-                    <v-img :src="item.src"></v-img>
-                </VListItemAvatar>
-            </VListItem>
         </VCard>
--->
 
-    </div>
+    </VContainer>
 </template>
 <script>
 
     import avatar from '../../../../resources/assets/images/avatar.png';
-    import store from '../../store/DomainModule';
 
     export default {
-
         name: 'domainssettings-component',
-
         mounted() {
-            console.log('Component mounted.')
-        },
+            let index = this.$store.getters['domains/getIndex'];
+            let list = this.$store.getters['domains/getlist'].filter(list => list.id === index);
 
+            this.alias = list[0].domain;
+            this.switcher = list[0].active;
+        },
         computed: {
-          showName() {
-              return store.state.domainName;
-          }
+            getIndex() {
+              return this.$store.getters['domains/getIndex'];
+            }
         },
-
         data() {
             return {
-                valid: '',
-                domain: '',
-                domainRules: [
-                    function (v){
-                        return /\w+\.\w{2,}/.test(v) && v.length > 5 || 'Domain not valid'
-                    }
-                ],
-
+                switcher: false,
+                alias: 'Type Domain Name...',
                 item: {
-                    domainName: 'domainName',
+                    color: 'gray',
                     src: avatar,
                     domain: 'Domain 1',
                     alias: 'Domain 1 Alias',
