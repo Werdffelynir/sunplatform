@@ -23,6 +23,7 @@ const routes = [
     {
         name: 'DomainsSettings',
         path: '/domains/settings',
+        props: true,
         component: DomainsSettingsComponent },
     {
         name: 'ServicesSettings',

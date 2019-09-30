@@ -2107,7 +2107,6 @@ __webpack_require__.r(__webpack_exports__);
 __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _resources_assets_images_avatar_png__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ../../../../resources/assets/images/avatar.png */ "./resources/assets/images/avatar.png");
 /* harmony import */ var _resources_assets_images_avatar_png__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(_resources_assets_images_avatar_png__WEBPACK_IMPORTED_MODULE_0__);
-/* harmony import */ var _store_DomainModule__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ../../store/DomainModule */ "./resources/js/store/DomainModule.js");
 //
 //
 //
@@ -2135,20 +2134,30 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
-
+//
+//
+//
+//
+//
 
 /* harmony default export */ __webpack_exports__["default"] = ({
   name: 'domainssettings-component',
   mounted: function mounted() {
     console.log('Component mounted.');
+    console.log(this.$store.getters['domains/getIndex']);
   },
   computed: {
     showName: function showName() {
-      return _store_DomainModule__WEBPACK_IMPORTED_MODULE_1__["default"].state.domainName;
+      return this.$store.getters['profile/getUser'];
+    },
+    getIndex: function getIndex() {
+      return this.$store.getters['domains/getIndex'];
     }
   },
   data: function data() {
     return {
+      switcher: false,
+      aliax: this.details,
       item: {
         color: 'gray',
         src: _resources_assets_images_avatar_png__WEBPACK_IMPORTED_MODULE_0___default.a,
@@ -2172,6 +2181,14 @@ __webpack_require__.r(__webpack_exports__);
 
 "use strict";
 __webpack_require__.r(__webpack_exports__);
+/* harmony import */ var _Settings__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./Settings */ "./resources/js/components/Domains/Settings.vue");
+/* harmony import */ var vuex__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! vuex */ "./node_modules/vuex/dist/vuex.esm.js");
+function ownKeys(object, enumerableOnly) { var keys = Object.keys(object); if (Object.getOwnPropertySymbols) { var symbols = Object.getOwnPropertySymbols(object); if (enumerableOnly) symbols = symbols.filter(function (sym) { return Object.getOwnPropertyDescriptor(object, sym).enumerable; }); keys.push.apply(keys, symbols); } return keys; }
+
+function _objectSpread(target) { for (var i = 1; i < arguments.length; i++) { var source = arguments[i] != null ? arguments[i] : {}; if (i % 2) { ownKeys(source, true).forEach(function (key) { _defineProperty(target, key, source[key]); }); } else if (Object.getOwnPropertyDescriptors) { Object.defineProperties(target, Object.getOwnPropertyDescriptors(source)); } else { ownKeys(source).forEach(function (key) { Object.defineProperty(target, key, Object.getOwnPropertyDescriptor(source, key)); }); } } return target; }
+
+function _defineProperty(obj, key, value) { if (key in obj) { Object.defineProperty(obj, key, { value: value, enumerable: true, configurable: true, writable: true }); } else { obj[key] = value; } return obj; }
+
 //
 //
 //
@@ -2220,20 +2237,24 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
+//
+
+
 /* harmony default export */ __webpack_exports__["default"] = ({
   name: 'domains-component',
   components: {},
   data: function data() {
     return {};
   },
-  methods: {
+  methods: _objectSpread({}, Object(vuex__WEBPACK_IMPORTED_MODULE_1__["mapMutations"])('domains', ['setIndex']), {
     navigateToDomainSettings: function navigateToDomainSettings() {
       this.$router.push('domains/settings');
+      this.setIndex(0);
     },
     navigateToServiceSettings: function navigateToServiceSettings() {
       this.$router.push('services/settings');
     }
-  },
+  }),
   computed: {
     domains: function domains() {
       return this.$store.getters['domains/getlist'];
@@ -2285,8 +2306,99 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
 /* harmony default export */ __webpack_exports__["default"] = ({
-  name: "editor-component"
+  name: "editor-component",
+  data: function data() {
+    return {
+      switcher: false,
+      dropdown_list: ['One', 'Two', 'Three']
+    };
+  }
 });
 
 /***/ }),
@@ -23736,58 +23848,63 @@ var render = function() {
   var _h = _vm.$createElement
   var _c = _vm._self._c || _h
   return _c(
-    "div",
-    { staticClass: "container" },
+    "VContainer",
     [
-      _c("h2", [_vm._v("Profile settings")]),
+      _c("h2", [_vm._v("Domain settings")]),
       _vm._v(" "),
       _c(
         "VCard",
         { attrs: { color: _vm.item.color, dark: "" } },
         [
           _c(
-            "VListItem",
-            { attrs: { "three-line": "" } },
+            "VRow",
             [
               _c(
-                "VListItemContent",
-                { staticClass: "align-self-start" },
+                "VCol",
                 [
-                  _c("VListItemTitle", {
-                    staticClass: "headline mb-2",
-                    domProps: { textContent: _vm._s(_vm.showName) }
-                  }),
-                  _vm._v("\n\n                alias "),
-                  _c("VListItemSubtitle", {
-                    domProps: { textContent: _vm._s(_vm.item.alias) }
-                  }),
-                  _vm._v("\n                dns 1 "),
-                  _c("VListItemSubtitle", {
-                    domProps: { textContent: _vm._s(_vm.item.dns_1) }
-                  }),
-                  _vm._v("\n                dns 2"),
-                  _c("VListItemSubtitle", {
-                    domProps: { textContent: _vm._s(_vm.item.dns_2) }
-                  }),
-                  _vm._v(" "),
-                  _c(
-                    "VCardActions",
-                    [_c("VBtn", { attrs: { text: "" } }, [_vm._v("Edit")])],
-                    1
-                  )
+                  _c("VTextField", {
+                    staticClass: "ma-2",
+                    attrs: {
+                      label: "Domain Alias",
+                      placeholder: "Type Domain Alias...",
+                      "hide-details": ""
+                    }
+                  })
                 ],
-                1
-              ),
-              _vm._v(" "),
-              _c(
-                "VListItemAvatar",
-                { attrs: { size: "125", tile: "" } },
-                [_c("v-img", { attrs: { src: _vm.item.src } })],
                 1
               )
             ],
             1
-          )
+          ),
+          _vm._v(" "),
+          _c(
+            "VRow",
+            [
+              _c(
+                "VCol",
+                [
+                  _c("VSwitch", {
+                    staticClass: "ma-2",
+                    attrs: {
+                      label: "" + (_vm.switcher ? "ON" : "OFF"),
+                      "hide-detail": ""
+                    },
+                    model: {
+                      value: _vm.switcher,
+                      callback: function($$v) {
+                        _vm.switcher = $$v
+                      },
+                      expression: "switcher"
+                    }
+                  })
+                ],
+                1
+              )
+            ],
+            1
+          ),
+          _vm._v(" "),
+          _c("VCardActions", [_c("VBtn", [_vm._v("Save")])], 1)
         ],
         1
       )
@@ -23976,7 +24093,221 @@ var render = function() {
   var _vm = this
   var _h = _vm.$createElement
   var _c = _vm._self._c || _h
-  return _c("div")
+  return _c(
+    "VContainer",
+    [
+      _c(
+        "VRow",
+        { staticClass: "no-gutters" },
+        [
+          _c(
+            "VCol",
+            [
+              _c("VSwitch", {
+                staticClass: "ma-2",
+                attrs: {
+                  label: "Active: " + _vm.switcher.toString().toUpperCase()
+                },
+                model: {
+                  value: _vm.switcher,
+                  callback: function($$v) {
+                    _vm.switcher = $$v
+                  },
+                  expression: "switcher"
+                }
+              })
+            ],
+            1
+          ),
+          _vm._v(" "),
+          _c(
+            "VCol",
+            [
+              _c("VTextField", {
+                attrs: {
+                  label: "TYPE",
+                  "single-line": "",
+                  outlined: "",
+                  "hide-details": ""
+                }
+              })
+            ],
+            1
+          ),
+          _vm._v(" "),
+          _c(
+            "VCol",
+            { attrs: { cols: "1" } },
+            [
+              _c(
+                "VBtn",
+                {
+                  staticClass: "mx-2",
+                  attrs: { tile: "", fab: "", dark: "", color: "indigo" }
+                },
+                [_c("v-icon", { attrs: { dark: "" } }, [_vm._v("mdi-plus")])],
+                1
+              )
+            ],
+            1
+          ),
+          _vm._v(" "),
+          _c(
+            "VCol",
+            { attrs: { cols: "2" } },
+            [
+              _c("VOverflowBtn", {
+                staticClass: "my-1",
+                attrs: { items: _vm.dropdown_list, label: "DROPDOWN" }
+              })
+            ],
+            1
+          )
+        ],
+        1
+      ),
+      _vm._v(" "),
+      _c(
+        "VRow",
+        { staticClass: "mt-10" },
+        [
+          _c(
+            "VCol",
+            { attrs: { cols: "4" } },
+            [
+              _c("VTextField", {
+                attrs: {
+                  label: "NAME",
+                  "single-line": "",
+                  outlined: "",
+                  "hide-details": ""
+                }
+              })
+            ],
+            1
+          )
+        ],
+        1
+      ),
+      _vm._v(" "),
+      _c(
+        "VRow",
+        [
+          _c(
+            "VCol",
+            { attrs: { cols: "4" } },
+            [
+              _c("VTextField", {
+                attrs: {
+                  label: "TITLE",
+                  "single-line": "",
+                  outlined: "",
+                  "hide-details": ""
+                }
+              })
+            ],
+            1
+          )
+        ],
+        1
+      ),
+      _vm._v(" "),
+      _c(
+        "VRow",
+        [
+          _c(
+            "VCol",
+            { attrs: { cols: "9" } },
+            [
+              _c("v-textarea", {
+                attrs: {
+                  filled: "",
+                  "auto-grow": "",
+                  label: "BODY",
+                  rows: "1",
+                  "row-height": "150"
+                }
+              })
+            ],
+            1
+          )
+        ],
+        1
+      ),
+      _vm._v(" "),
+      _c(
+        "VRow",
+        { staticClass: "no-gutters" },
+        [
+          _c(
+            "VCol",
+            { attrs: { cols: "4" } },
+            [
+              _c("VTextField", {
+                attrs: {
+                  label: "CUSTOM OPTION",
+                  "single-line": "",
+                  outlined: "",
+                  "hide-details": ""
+                }
+              })
+            ],
+            1
+          ),
+          _vm._v(" "),
+          _c(
+            "VCol",
+            { attrs: { cols: "1" } },
+            [
+              _c(
+                "VBtn",
+                {
+                  staticClass: "mx-2",
+                  attrs: { tile: "", fab: "", dark: "", color: "indigo" }
+                },
+                [_c("v-icon", { attrs: { dark: "" } }, [_vm._v("mdi-plus")])],
+                1
+              )
+            ],
+            1
+          )
+        ],
+        1
+      ),
+      _vm._v(" "),
+      _c(
+        "VRow",
+        { staticClass: "d-flex justify-center mt-10" },
+        [
+          _c(
+            "VCol",
+            { attrs: { cols: "2" } },
+            [
+              _c("VBtn", { attrs: { large: "", block: "", color: "error" } }, [
+                _vm._v("Delete")
+              ])
+            ],
+            1
+          ),
+          _vm._v(" "),
+          _c(
+            "VCol",
+            { attrs: { cols: "2" } },
+            [
+              _c(
+                "VBtn",
+                { attrs: { large: "", block: "", color: "success" } },
+                [_vm._v("Save")]
+              )
+            ],
+            1
+          )
+        ],
+        1
+      )
+    ],
+    1
+  )
 }
 var staticRenderFns = []
 render._withStripped = true
@@ -78389,6 +78720,7 @@ __webpack_require__.r(__webpack_exports__);
 vue__WEBPACK_IMPORTED_MODULE_0___default.a.use(vuetify_lib__WEBPACK_IMPORTED_MODULE_1__["default"], {
   components: {
     VApp: vuetify_lib__WEBPACK_IMPORTED_MODULE_1__["VApp"],
+    VOverflowBtn: vuetify_lib__WEBPACK_IMPORTED_MODULE_1__["VOverflowBtn"],
     VNavigationDrawer: vuetify_lib__WEBPACK_IMPORTED_MODULE_1__["VNavigationDrawer"],
     VContent: vuetify_lib__WEBPACK_IMPORTED_MODULE_1__["VContent"],
     VDivider: vuetify_lib__WEBPACK_IMPORTED_MODULE_1__["VDivider"],
@@ -78497,6 +78829,7 @@ var routes = [{
 }, {
   name: 'DomainsSettings',
   path: '/domains/settings',
+  props: true,
   component: _components_Domains_Settings__WEBPACK_IMPORTED_MODULE_3__["default"]
 }, {
   name: 'ServicesSettings',
@@ -78563,16 +78896,23 @@ var DOMAIN_LIST = [{
   namespaced: true,
   state: {
     domainName: '',
-    list: DOMAIN_LIST
+    list: DOMAIN_LIST,
+    index: 0
   },
   getters: {
     getlist: function getlist(state) {
       return state.list;
+    },
+    getIndex: function getIndex(state) {
+      return state.index;
     }
   },
   mutations: {
     changeName: function changeName(state, name) {
       state.domainName = name;
+    },
+    setIndex: function setIndex(state, id) {
+      state.index = id;
     }
   },
   actions: {}

@@ -1,47 +1,57 @@
 <template>
-    <div class="container">
-        <h2>Profile settings</h2>
-
+    <VContainer>
+        <h2>Domain settings</h2>
         <VCard :color="item.color" dark>
-            <VListItem three-line>
-                <VListItemContent class="align-self-start">
-                    <VListItemTitle class="headline mb-2" v-text="showName"></VListItemTitle>
-
-                    alias <VListItemSubtitle v-text="item.alias"></VListItemSubtitle>
-                    dns 1 <VListItemSubtitle v-text="item.dns_1"></VListItemSubtitle>
-                    dns 2<VListItemSubtitle v-text="item.dns_2"></VListItemSubtitle>
+<VRow>
+    <VCol>
+                    <VTextField
+                        label="Domain Alias"
+                        placeholder="Type Domain Alias..."
+                        class="ma-2"
+                        hide-details
+                    ></VTextField>
+    </VCol>
+</VRow>
+                    <VRow>
+                        <VCol>
+                    <VSwitch
+                        v-model="switcher"
+                        class="ma-2"
+                        :label="`${switcher ? 'ON' : 'OFF'}`"
+                        hide-detail
+                    ></VSwitch>
+                        </VCol>
+                    </VRow>
 
                     <VCardActions>
-                        <VBtn text>Edit</VBtn>
+                        <VBtn>Save</VBtn>
                     </VCardActions>
-
-                </VListItemContent>
-
-                <VListItemAvatar size="125" tile>
-                    <v-img :src="item.src"></v-img>
-                </VListItemAvatar>
-            </VListItem>
         </VCard>
 
-    </div>
+    </VContainer>
 </template>
 <script>
 
     import avatar from '../../../../resources/assets/images/avatar.png';
-    import store from '../../store/DomainModule';
 
     export default {
         name: 'domainssettings-component',
         mounted() {
-            console.log('Component mounted.')
+            console.log('Component mounted.');
+            console.log(this.$store.getters['domains/getIndex'])
         },
         computed: {
           showName() {
-              return store.state.domainName;
-          }
+              return this.$store.getters['profile/getUser'];
+          },
+            getIndex() {
+              return this.$store.getters['domains/getIndex'];
+            }
         },
         data() {
             return {
+                switcher: false,
+                aliax: this.details,
                 item: {
                     color: 'gray',
                     src: avatar,

@@ -14,15 +14,20 @@ export default {
     namespaced: true,
     state: {
         domainName: '',
-        list: DOMAIN_LIST
+        list: DOMAIN_LIST,
+        index: 0
     },
     getters: {
         getlist: state => {
             return state.list;
+        },
+        getIndex: state => {
+            return state.index;
         }
     },
     mutations: {
-        changeName(state, name) { state.domainName = name }
+        changeName(state, name) { state.domainName = name },
+        setIndex(state, id) { state.index = id }
     },
     actions: {
 

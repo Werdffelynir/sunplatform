@@ -19,6 +19,7 @@
                     <VDivider></VDivider>
                     <VCardActions>
                        <VBtn text v-on:click="navigateToDomainSettings">Settings</VBtn>
+<!--                        <router-link to="domains/settings">Settings</router-link>-->
                     </VCardActions>
                 </VCard>
             </VCol>
@@ -48,6 +49,9 @@
 </style>
 <script>
 
+    import Settings from "./Settings"
+    import { mapMutations } from 'vuex';
+
     export default {
         name: 'domains-component',
 
@@ -60,8 +64,10 @@
             }
         },
         methods: {
+            ...mapMutations('domains', ['setIndex']),
             navigateToDomainSettings() {
                 this.$router.push('domains/settings')
+                this.setIndex(0);
             },
             navigateToServiceSettings() {
                 this.$router.push('services/settings')

@@ -6,6 +6,7 @@ import Vuetify, {
     VDivider,
     VFooter,
     VCard,
+    VOverflowBtn,
     VCardTitle,
     VCardText,
     VChip,
@@ -57,6 +58,7 @@ import {
 Vue.use(Vuetify, {
     components: {
         VApp,
+        VOverflowBtn,
         VNavigationDrawer,
         VContent,
         VDivider,

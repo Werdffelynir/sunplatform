@@ -25,6 +25,7 @@ Route::get('/home', 'ViewController@main')
     ->name('main');
 
 Route::get('/profile', 'ViewController@main')->name('main');
-Route::get('/domains', 'ViewController@main')->name('main');
+Route::get('/domains/', 'ViewController@main')->name('main');
 Route::get('/services', 'ViewController@main')->name('main');
 Route::get('/editor', 'ViewController@main')->name('main');
+Route::get('/domains/settings', 'ViewController@main')->name('main');
