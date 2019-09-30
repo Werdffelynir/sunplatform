@@ -1,20 +1,23 @@
 <?php
 
-namespace App;
+namespace App\Models;
 
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Notifications\Notifiable;
 
-class ServicesTypes extends Model
+class RecordsTypes extends Model
 {
     use Notifiable;
 
-    protected $table = 'services_types';
+    protected $table = 'records_types';
 
     protected $fillable = [
         'id',
         'id_user',
-        'id_service',
+        'id_record',
+        'key',
+        'group',
         'status',
     ];
+
 }

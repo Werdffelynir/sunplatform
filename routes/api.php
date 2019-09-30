@@ -38,5 +38,7 @@ Route::group(['namespace' => 'Api'], function () {
 
     Route::group(['namespace' => 'Domains'], function () {
         Route::get('/domains', 'DomainsController');
+        Route::post('/domains/register', 'DomainsController@register')
+            ->middleware('auth:api');
     });
 });

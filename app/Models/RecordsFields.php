@@ -1,18 +1,21 @@
 <?php
 
-namespace App;
+namespace App\Models;
 
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Notifications\Notifiable;
 
-class Domains extends Model
+class RecordsFields extends Model
 {
     use Notifiable;
 
-    protected $table = 'domains';
+    protected $table = 'records_fields';
 
-/*    protected $fillable = [
-        'address',
+    protected $fillable = [
+        'id',
+        'id_record',
+        'type',
+        'body',
     ];
 
     protected $hidden = [];
@@ -20,6 +23,5 @@ class Domains extends Model
     protected $casts = [
         'created_at' => 'datetime',
         'updated_at' => 'datetime',
-        'actived_to' => 'datetime',
-    ];*/
+    ];
 }

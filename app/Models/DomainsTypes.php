@@ -1,23 +1,25 @@
 <?php
 
-namespace App;
+namespace App\Models;
 
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Notifications\Notifiable;
 
-class RecordsTypes extends Model
+class DomainsTypes extends Model
 {
     use Notifiable;
 
-    protected $table = 'records_types';
+    protected $table = 'domains_types';
 
     protected $fillable = [
         'id',
+        'id_domain',
+        'id_service',
         'id_user',
-        'id_record',
-        'key',
-        'group',
         'status',
     ];
 
+    protected $hidden = [];
+
+    protected $casts = [];
 }

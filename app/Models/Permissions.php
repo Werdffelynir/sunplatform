@@ -1,20 +1,19 @@
 <?php
 
-namespace App;
+namespace App\Models;
 
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Notifications\Notifiable;
 
-class RolesTypes extends Model
+class Permissions extends Model
 {
     use Notifiable;
 
-    protected $table = 'roles_types';
+    protected $table = 'permissions';
 
     protected $fillable = [
         'id',
-        'id_role',
-        'id_user',
+        'id_service',
+        'access',
     ];
-
 }
