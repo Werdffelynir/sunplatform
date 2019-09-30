@@ -6,20 +6,21 @@ import Vuex from 'vuex';
 import VueRouter from 'vue-router';
 import VueAxios from 'vue-axios';
 
-import LoginComponent from './components/auth/Login.vue';
-import RegisterComponent from './components/auth/Register.vue';
-import MenuComponent from './components/common/Menu.vue';
 import AppComponent from './components/App.vue';
 import vuetify from './plugins/vuetify'
+import Requester from './plugins/requester'
 import store from './store';
 import routes from './routes';
+// import requester from './requester';
 
 
-window._ = lodash;
-window.axios = axios;
-window.axios.defaults.headers.common['X-Requested-With'] = 'XMLHttpRequest';
-window.Vue = Vue;
+/*window._ = lodash;*/
+// window.requester = requester;
+// window.axios = axios;
+// window.axios.defaults.headers.common['X-Requested-With'] = 'XMLHttpRequest';
+// window.Vue = Vue;
 
+Vue.use(Requester);
 Vue.use(Vuex);
 Vue.use(VueRouter);
 Vue.use(VueAxios, axios);
@@ -37,10 +38,7 @@ new Vue({
     vuetify,
     el: '#app',
     components: {
-        'register-component': RegisterComponent,
-        'login-component': LoginComponent,
-        'menu-component': MenuComponent,
-        'app-component': AppComponent
+        'app-component': AppComponent,
     },
 
     computed: {
@@ -49,10 +47,8 @@ new Vue({
         }
     },
     methods: {
-        goBack () {
-            window.history.length > 1
-                ? this.$router.go(-1)
-                : this.$router.push('/')
+        historyBack () {
+            window.history.length > 1 ? this.$router.go(-1) : this.$router.push('/')
         }
     }
 });

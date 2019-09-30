@@ -18,9 +18,17 @@
                 <VBtn text>services</VBtn>
             </router-link>
 
-            <a href="#logout" @click="logout">
+            <router-link to="/login">
+                <VBtn text>login</VBtn>
+            </router-link>
+
+            <router-link to="/register">
+                <VBtn text>register</VBtn>
+            </router-link>
+
+            <router-link to="/logout" @click="logout">
                 <VBtn text>logout</VBtn>
-            </a>
+            </router-link>
         </VToolbarItems>
 
     </div>
@@ -29,7 +37,7 @@
 <script>
 
     import '../../../sass/components/menu.scss';
-    import { postData } from '../../utils/request';
+    import { requestPost } from '../../utils/request';
 
     export default {
 
@@ -43,14 +51,15 @@
 
         methods: {
             logout (){
-                const token = this.$store.getters['profile/token'];
+                localStorage.removeItem('credentials')
+/*                const token = this.$store.getters['profile/token'];
                 if (token.length > 20) {
-                    postData('/logout', {
-                        _token: token,
-                    }).then(data => {
-                        location.href = '/login';
-                    }).catch(error => {console.log('ERROR:', error)});
-                }
+                    // postData('/logout', {
+                    //     _token: token,
+                    // }).then(data => {
+                    //     location.href = '/login';
+                    // }).catch(error => {console.log('ERROR:', error)});
+                }*/
             },
         },
     }

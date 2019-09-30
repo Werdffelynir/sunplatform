@@ -5,8 +5,8 @@
 <VRow>
     <VCol>
                     <VTextField
-                        label="Domain Alias"
-                        placeholder="Type Domain Alias..."
+                        label="Domain Name"
+                        :placeholder="alias"
                         class="ma-2"
                         hide-details
                     ></VTextField>
@@ -37,13 +37,13 @@
     export default {
         name: 'domainssettings-component',
         mounted() {
-            console.log('Component mounted.');
-            console.log(this.$store.getters['domains/getIndex'])
+            let index = this.$store.getters['domains/getIndex'];
+            let list = this.$store.getters['domains/getlist'].filter(list => list.id === index);
+
+            this.alias = list[0].domain;
+            this.switcher = list[0].active;
         },
         computed: {
-          showName() {
-              return this.$store.getters['profile/getUser'];
-          },
             getIndex() {
               return this.$store.getters['domains/getIndex'];
             }
@@ -51,7 +51,7 @@
         data() {
             return {
                 switcher: false,
-                aliax: this.details,
+                alias: 'Type Domain Name...',
                 item: {
                     color: 'gray',
                     src: avatar,

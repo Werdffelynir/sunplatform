@@ -1,8 +1,9 @@
 @extends('layouts.app')
 
 @section('content')
-    <app-component
-        csrf-token="{{ csrf_token() }}"
-        user-data=" {{ json_encode($user) }}"
-    />
+
+    @if(csrf_token())
+        <app-component csrf="{{csrf_token()}}"/>
+    @endif
+
 @endsection

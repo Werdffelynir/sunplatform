@@ -14,18 +14,23 @@ use \Illuminate\Support\Facades\Route;
 |
 */
 
-Auth::routes();
+$ROUTERS = [
+    '/',
+    '/home',
+    '/login',
+    '/logout',
+    '/register',
+    '/profile',
+    '/profile/register',
+    '/domains',
+    '/domains/register',
+    '/domains/settings',
+    '/services',
+    '/services/register',
+    '/services/settings',
+    '/editor',
+];
 
-Route::get('/', 'ViewController@main')
-//    ->middleware('auth')
-    ->name('main');
-
-Route::get('/home', 'ViewController@main')
-//    ->middleware('auth')
-    ->name('main');
-
-Route::get('/profile', 'ViewController@main')->name('main');
-Route::get('/domains/', 'ViewController@main')->name('main');
-Route::get('/services', 'ViewController@main')->name('main');
-Route::get('/editor', 'ViewController@main')->name('main');
-Route::get('/domains/settings', 'ViewController@main')->name('main');
+array_walk($ROUTERS, function ($path) {
+    Route::get($path, 'ViewController@main')->name('main');
+});

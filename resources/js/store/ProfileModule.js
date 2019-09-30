@@ -1,58 +1,74 @@
+import Vue from 'vue';
+
+const credentialsKeys = {
+    expires_at: null,
+    token: null,
+    token_type: null,
+};
+
 export default {
 
     namespaced: true,
 
     state: {
         user: {
-/*
-            name: JSON.parse(localStorage.getItem('name')) || '',
-            email: JSON.parse(localStorage.getItem('email')) || '',
-            real_name: JSON.parse(localStorage.getItem('real_name')) || '',
-            company: JSON.parse(localStorage.getItem('company')) || '',
-            company_spec: JSON.parse(localStorage.getItem('company_spec')) || '',
-            requisites: JSON.parse(localStorage.getItem('requisites')) || '',
-            address: JSON.parse(localStorage.getItem('address')) || '',
-            phone: JSON.parse(localStorage.getItem('phone')) || '',
-            currency: JSON.parse(localStorage.getItem('currency')) || '',
-            avatar: ''
-*/
-
-            name: 'OlegX',
-            email: 'Oleg@yahoo.com',
-            real_name: 'Oleg Real',
-            company: 'Oleg Company',
-            company_spec: 'IT',
-            requisites: '333',
-            address: '',
-            phone: '+43 4333 444',
-            currency: 'UAH',
-            avatar: false
+            name: '',
+            email: '',
+            create_at: '',
+            avatar: '',
         },
-        token: '',
+        isAuthorizedUser: false,
+        credentials: null,
+        csrf: '',
     },
 
     getters: {
-        getUser(state) {
-            return {...state.user}
-        }
+        user(state) {
+            return { ...state.user } },
+        csrf(state) {
+            return state.csrf },
+        credentials(state) {
+            return { ...state.credentials } },
+        //todo: rm
+        isAuthorizedUser(state) {
+            let credentials;
+            return !!state.credentials || credentials},
     },
-
     mutations: {
-        updateUser(state, payload) {
-            state.user = {...state.user, ...payload}
-            // localStorage.setItem('name', JSON.stringify(data.name))
-            // localStorage.setItem('email', JSON.stringify(data.email))
-            // localStorage.setItem('real_name', JSON.stringify(data.real_name))
-            // localStorage.setItem('company', JSON.stringify(data.company))
-            // localStorage.setItem('company_spec', JSON.stringify(data.company_spec))
-            // localStorage.setItem('requisites', JSON.stringify(data.requisites))
-            // localStorage.setItem('address', JSON.stringify(data.address))
-            // localStorage.setItem('phone', JSON.stringify(data.phone))
-            // localStorage.setItem('currency', JSON.stringify(data.currency))
+        addUser(state, payload) {
+            state.user = {...state.user, ...payload};
+        },
 
-        }
+        addCredentials(state, payload) {
+            const credentials = {};
+            const keys = Object.keys(credentialsKeys);
+            for (let i = 0; i < keys.length; i++) {
+                if (payload[keys[i]])
+                    credentials[keys[i]] = payload[keys[i]];
+                else
+                    return false;
+            }
+
+            Vue.requesterCredentials(credentials);
+            localStorage.setItem('credentials', JSON.stringify(credentials));
+
+            //todo: rm
+            state.isAuthorizedUser = true;
+            state.credentials = credentials;
+        },
+
+
+        removeCredentials(state, payload) {
+
+            //todo: rm
+            state.isAuthorizedUser = false;
+            state.credentials = null;
+        },
+        addCsrf(state, payload) {
+            state.csrf = payload;
+        },
     },
     actions: {
 
-    }
+    },
 };

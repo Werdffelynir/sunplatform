@@ -67,14 +67,12 @@
                 ],
             }
         },
-        // mounted: function() {
-        //     user: function () {
-        //         return this.$store.getters['profile/getUser']
-        //     }
-        // }
+
+        mounted: function() { },
+
         computed: {
             user: function () {
-                return this.$store.getters['profile/getUser']
+                return this.$store.getters['profile/user']
             }
         },
 

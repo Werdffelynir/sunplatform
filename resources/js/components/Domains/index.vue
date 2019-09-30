@@ -1,14 +1,17 @@
 <template>
     <div class="container">
-        <h2>Domains</h2>
 
-        <VRow justify="space-between" class="grid">
-            <div>
-                <VAppBarNavIcon>
-                    <VIcon>mdi-access-point-network</VIcon>
-                </VAppBarNavIcon>
-            </div>
-        </VRow>
+        <VToolbar>
+            <VToolbarTitle>Registered Domains</VToolbarTitle>
+            <div class="flex-grow-1"></div>
+            <VToolbarItems></VToolbarItems>
+            <router-link to="/domains/register">
+            <VBtn icon>
+                <VIcon>mdi-plus-circle</VIcon>
+            </VBtn>
+            </router-link>
+        </VToolbar>
+
         <VRow v-for="domain in domains" :key="domain.domain + domain.id">
             <VCol>
                 <VCard>
@@ -18,7 +21,7 @@
                     <VCardText class="pt-0">active to: {{domain.active_to}}</VCardText>
                     <VDivider></VDivider>
                     <VCardActions>
-                       <VBtn text v-on:click="navigateToDomainSettings">Settings</VBtn>
+                       <VBtn text v-on:click="navigateToDomainSettings(domain.id)">Settings</VBtn>
 <!--                        <router-link to="domains/settings">Settings</router-link>-->
                     </VCardActions>
                 </VCard>
@@ -65,9 +68,9 @@
         },
         methods: {
             ...mapMutations('domains', ['setIndex']),
-            navigateToDomainSettings() {
+            navigateToDomainSettings(id) {
                 this.$router.push('domains/settings')
-                this.setIndex(0);
+                this.setIndex(id);
             },
             navigateToServiceSettings() {
                 this.$router.push('services/settings')

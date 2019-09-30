@@ -1,5 +1,5 @@
 <template>
-    <VCard dark>
+    <VCard v-if="show" dark max-width="800" class="auth-form m-auto">
 
         <div class="auth-menu">
             <a href="/login" >Login</a> |
@@ -13,16 +13,6 @@
                         v-model="email"
                         :rules="emailRules"
                         label="E-mail Address"></VTextField>
-                </VCol>
-                <VCol>
-                    <h1>Login</h1>
-                    <h3 class="logo">Sunlight Contest Access Platform</h3>
-                    <p>software platform for service management in the development process</p>
-                </VCol>
-            </VRow>
-
-            <VRow>
-                <VCol cols="12" md="4">
                     <VTextField
                         required
                         type="password"
@@ -31,14 +21,12 @@
                         :rules="passwordRules"
                         :counter="24"
                         label="Password"></VTextField>
+                    <VCheckbox v-model="rememberMe" label="Remember Me"></VCheckbox>
                 </VCol>
                 <VCol>
-                </VCol>
-            </VRow>
-
-            <VRow>
-                <VCol class="text-right">
-                    <VCheckbox v-model="rememberMe" label="Remember Me"></VCheckbox>
+                    <h1>Login</h1>
+                    <h3 class="logo">Sunlight Contest Access Platform</h3>
+                    <p>software platform for service management in the development process</p>
                 </VCol>
             </VRow>
 
@@ -54,61 +42,101 @@
                     </a>
                 </VCol>
             </VRow>
-
         </VForm>
+
+        <VSnackbar top :multi-line="true" v-model="snackbar" >
+            <h2>
+                <span v-if="errorMessages" class="red--text">{{ errorMessages }}</span>
+                <span v-if="successMessages">{{ successMessages }}</span>
+            </h2>
+            <VBtn color="pink" text @click="snackbar = errorMessages = successMessages = false">Close</VBtn>
+        </VSnackbar>
     </VCard>
 </template>
 <style>
 
 </style>
 <script>
-    import { postData } from '../../utils/request';
+    import { requestPost } from '../../utils/request';
 
     export default {
 
         name: 'login-component',
 
-        props: ['csrf-token'],
+        props: ['csrf'],
 
-        data () {return {
-            valid: false,
-            password: '',
-            rememberMe: true,
-            passwordRules: [
-               v => !!v || 'Password is required',
-               v => v.length <= 24 || 'Password must be less than 24 characters',
-            ],
-            email: 'admin@admin.com',
-            emailRules: [
-               v => !!v || 'E-mail is required',
-               v => /.+@.+/.test(v) || 'E-mail must be valid',
-            ],
-        }},
+        data () {
+            return {
+                show: true,
+                valid: false,
+                password: 'admin@admin.com',
+                rememberMe: true,
+                passwordRules: [
+                   v => !!v || 'Password is required',
+                   v => v.length <= 24 || 'Password must be less than 24 characters',
+                ],
+                email: 'admin@admin.com',
+                emailRules: [
+                   v => !!v || 'E-mail is required',
+                   v => /.+@.+/.test(v) || 'E-mail must be valid',
+                ],
+                snackbar: false,
+                errorMessages: null,
+                successMessages: null,
+            }
+        },
 
         methods: {
             send () {
                 const data = {
                     email: this.email,
                     password: this.password,
-                    rememberMe: this.rememberMe,
-                    _token: this.csrfToken,
+                    remember_me: this.rememberMe,
                 };
 
-                if (this.valid) {
-                    postData('/login', data).then(data => {
-                        location.href = '/home';
-                    }).catch(error => {
-                        console.log('ERROR:',error);
-                    });
+                if (this.valid && !this.snackbar) {
+                    requestPost('/api/login', data)
+                        .then(response => {
+                            this.mutationsAddCredentials(response);
+
+                            if (response && this.gettersIsAuthorizedUser()) {
+                                this.show = false;
+                                this.snackbar = true;
+                                this.successMessages = 'Gracia Login is success. Welcome to system.';
+
+                                setTimeout(()=>
+                                    this.$router.push('/'),3000);
+                            }
+                            // console.log('profile/isAuthorizedUser:', this.gettersIsAuthorizedUser());
+                        })
+                        .catch(error => {
+                            this.snackbar = true;
+                            this.errorMessages = 'Something wrong, please try later'
+                        });
+                } else {
+                    if (this.email.length === 0){
+                        this.snackbar = true;
+                        this.errorMessages = 'Email is required';
+                    }
+                    if (this.password.length === 0){
+                        this.snackbar = true;
+                        this.errorMessages = 'Password is required';
+                    }
                 }
             },
+
+            // getters
+            gettersIsAuthorizedUser() {return this.$store.getters['profile/isAuthorizedUser']},
+
+            // mutations
+            mutationsAddCredentials(payload) {this.$store.commit('profile/addCredentials', payload)},
         },
+
+        mounted() {},
+
+        watch: {},
 
         computed: {},
-
-        mounted() {
-            console.log('Component mounted.');
-        },
 
         components: {},
     }
