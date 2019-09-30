@@ -51,6 +51,7 @@
 <script>
 
     import '../../../sass/components/sidebar.scss';
+    import Avatar from '../common/Avatar';
 
     export default {
 
@@ -67,11 +68,17 @@
             }
         },
 
+        mounted: function() { },
+
         computed: {
-            user() {
+            user: function () {
                 return this.$store.getters['profile/user']
-            },
+            }
         },
+
+        components: {
+            'avatar-component': Avatar,
+        }
 
     }
 </script>

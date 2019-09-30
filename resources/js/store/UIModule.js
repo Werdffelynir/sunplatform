@@ -1,7 +1,7 @@
 export default {
     namespaced: true,
     state: {
-        count: 0,
+        count: 100,
         showSidebar: false,
         showHeader: false
     },

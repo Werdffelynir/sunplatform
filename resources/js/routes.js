@@ -8,6 +8,7 @@ import ServicesComponent from './components/Services';
 import LoginComponent from './components/auth/Login.vue';
 import LogoutComponent from './components/auth/Logout.vue';
 import RegisterComponent from './components/auth/Register.vue';
+import EditorComponent from './components/Editor';
 
 
 const routes = [
@@ -15,10 +16,10 @@ const routes = [
         name: 'Login',
         path: '/login',
         component: LoginComponent },
-/*    {
+    {
         name: 'Logout',
         path: '/logout',
-        component: LogoutComponent },*/
+        component: LogoutComponent },
     {
         name: 'Register',
         path: '/register',
@@ -50,7 +51,11 @@ const routes = [
     {
         name: 'Services',
         path: '/services',
-        component: ServicesComponent }
+        component: ServicesComponent },
+    {
+        name: 'Editor',
+        path: '/editor',
+        component: EditorComponent }
 ];
 
 export default routes;
