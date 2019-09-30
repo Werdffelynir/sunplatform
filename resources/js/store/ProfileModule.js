@@ -15,7 +15,7 @@ export default {
             email: '',
             create_at: ''
         },
-        // isAuthorizedUser: false,
+        isAuthorizedUser: false,
         credentials: null,
         csrf: '',
     },
@@ -27,19 +27,16 @@ export default {
             return state.csrf },
         credentials(state) {
             return { ...state.credentials } },
+        //todo: rm
         isAuthorizedUser(state) {
             let credentials;
-            try {
-                credentials = JSON.parse(localStorage.getItem('credentials'));
-                if (credentials)
-                    this.commit('profile/addCredentials', credentials)
-            } catch (e) {}
             return !!state.credentials || credentials},
     },
     mutations: {
         addUser(state, payload) {
             state.user = {...state.user, ...payload};
         },
+
         addCredentials(state, payload) {
             const credentials = {};
             const keys = Object.keys(credentialsKeys);
@@ -49,11 +46,18 @@ export default {
                 else
                     return false;
             }
+            requester.credentials(credentials);
             localStorage.setItem('credentials', JSON.stringify(credentials));
+
+            //todo: rm
             state.isAuthorizedUser = true;
             state.credentials = credentials;
         },
+
+
         removeCredentials(state, payload) {
+
+            //todo: rm
             state.isAuthorizedUser = false;
             state.credentials = null;
         },

@@ -22,13 +22,26 @@ class ProfileController extends Controller
         // return view('user.profile', ['user' => User::findOrFail($id)]);
     }*/
 
-    public function __invoke($request)
+    public function __invoke(Request $request)
     {
-        $token = $request->only('token');
+//        $token = $request->only('token');
+        $token = \request('token');
+
+//        $credentials = $request->only('email', 'password');
+
+/*        if (!Auth::attempt(['token'=>$token])) {
+            return response()->json([
+                'message' => 'You cannot sign with those credentials',
+                'errors' => 'Unauthorised'
+            ], 401);
+        }*/
+
+        $credentials = ['token'=>$token];
 
         return response()->json([
             '$request' => $request,
             '$token' => $token,
+            'check' => $request->user(),
         ]);
     }
 }

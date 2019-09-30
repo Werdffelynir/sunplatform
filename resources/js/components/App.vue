@@ -1,7 +1,7 @@
 <template>
 
     <VApp>
-        <div v-if="gettersIsAuthorizedUser">
+        <div v-if="isAuth">
             <VNavigationDrawer app clipped-x :width="sidebar ? 250 : 0">
                 <sidebar-component />
             </VNavigationDrawer>
@@ -10,9 +10,6 @@
                 <template v-if="$vuetify.breakpoint.smAndUp">
                     <VBtn v-on:click="sidebarToggle">
                         <VIcon>mdi-view-parallel</VIcon>
-                    </VBtn>
-                    <VBtn v-on:click="initRequest">
-                        <VIcon>mdi-server-network</VIcon>
                     </VBtn>
                 </template>
                 <VSpacer></VSpacer>
@@ -37,9 +34,6 @@
 <script>
     import SidebarComponent from './common/Sidebar.vue';
     import MenuComponent from './common/Menu.vue';
-    import {requestPost,requestGet} from '../utils/request';
-    // import LoginComponent from './auth/Login.vue';
-    // import RegisterComponent from './auth/Register.vue';
 
     export default {
         name: 'app-component',
@@ -47,22 +41,25 @@
         props: ['csrf'],
 
         mounted () {
-            // console.log('gettersIsAuthorizedUser', this.gettersIsAuthorizedUser);
-            // console.log('gettersUser', this.gettersUser);
-            // if (!this.gettersIsAuthorizedUser && this.$route.path !== '/login') {
-            //     // this.$router.push('/login');
-            //     // location.href = '/login';
-            // }
+            this.$store.subscribe((payload, state) => {
+                if(payload.type === "profile/addCredentials") {
+
+                    requester.get('/api/user').then((response)=>{
+                        this.$store.commit('profile/addUser', response );
+                    }).catch((err)=>{console.log('err', err)})
+
+                }
+            });
+
+            const credentials = JSON.parse(localStorage.getItem('credentials'));
+            if (credentials) {
+                requester.credentials( credentials );
+                this.$store.commit('profile/addCredentials', credentials );
+
+            }
         },
 
         data (vueAppComponent) {
-            this.$store.subscribe((payload, state) => {
-               // if (type === 'profile/addCredentials')
-                    console.log('subscribe type >> ', state);
-                    console.log('subscribe payload >> ', payload);
-                    console.log('subscribe payload >> ', payload.type === "profile/addCredentials" );
-            });
-
             return {
                 columns: [...new Array(16)],
                 sidebar: true,
@@ -73,14 +70,6 @@
             sidebarToggle() {
                 this.sidebar = !this.sidebar;
             },
-            initRequest() {
-                console.log('gettersCredentials', this.gettersCredentials);
-
-                requestGet('/api/profile', null, {}).then((response)=>{
-                    console.log('response', response);
-
-                }).catch((err)=>{console.log('err', err)})
-            },
         },
 
         watch: {},
@@ -88,18 +77,12 @@
         computed: {
 
             // getters
-            gettersUser() {return this.$store.getters['profile/user']},
-            gettersIsAuthorizedUser() {
-                return this.$store.getters['profile/isAuthorizedUser'] || true
-            },
-            gettersCredentials() {return this.$store.getters['profile/credentials']},
+            isAuth() { return this.$store.getters['profile/credentials'] },
         },
 
         components: {
             'sidebar-component': SidebarComponent,
             'menu-component': MenuComponent,
-            // 'login-component': LoginComponent,
-            // 'register-component': RegisterComponent,
         },
 
     }

@@ -10,9 +10,11 @@ import AppComponent from './components/App.vue';
 import vuetify from './plugins/vuetify'
 import store from './store';
 import routes from './routes';
+import requester from './requester';
 
 
-window._ = lodash;
+/*window._ = lodash;*/
+window.requester = requester;
 window.axios = axios;
 window.axios.defaults.headers.common['X-Requested-With'] = 'XMLHttpRequest';
 window.Vue = Vue;
