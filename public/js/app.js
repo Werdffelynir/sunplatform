@@ -1986,9 +1986,10 @@ function _arrayWithoutHoles(arr) { if (Array.isArray(arr)) { for (var i = 0, arr
   mounted: function mounted() {
     var _this = this;
 
+    // todo: init app. need replace to separate module
     this.$store.subscribe(function (payload, state) {
       if (payload.type === "profile/addCredentials") {
-        requester.get('/api/user').then(function (response) {
+        _this.$requester.get('/api/user').then(function (response) {
           _this.$store.commit('profile/addUser', response);
         })["catch"](function (err) {
           console.log('err', err);
@@ -1998,7 +1999,7 @@ function _arrayWithoutHoles(arr) { if (Array.isArray(arr)) { for (var i = 0, arr
     var credentials = JSON.parse(localStorage.getItem('credentials'));
 
     if (credentials) {
-      requester.credentials(credentials);
+      this.$requester.credentials(credentials);
       this.$store.commit('profile/addCredentials', credentials);
     }
   },
@@ -2017,7 +2018,7 @@ function _arrayWithoutHoles(arr) { if (Array.isArray(arr)) { for (var i = 0, arr
   computed: {
     // getters
     isAuth: function isAuth() {
-      return this.$store.getters['profile/credentials'];
+      return !!this.$store.getters['profile/credentials'].token;
     }
   },
   components: {
@@ -77995,9 +77996,9 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var vue_axios__WEBPACK_IMPORTED_MODULE_5___default = /*#__PURE__*/__webpack_require__.n(vue_axios__WEBPACK_IMPORTED_MODULE_5__);
 /* harmony import */ var _components_App_vue__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__(/*! ./components/App.vue */ "./resources/js/components/App.vue");
 /* harmony import */ var _plugins_vuetify__WEBPACK_IMPORTED_MODULE_7__ = __webpack_require__(/*! ./plugins/vuetify */ "./resources/js/plugins/vuetify.js");
-/* harmony import */ var _store__WEBPACK_IMPORTED_MODULE_8__ = __webpack_require__(/*! ./store */ "./resources/js/store/index.js");
-/* harmony import */ var _routes__WEBPACK_IMPORTED_MODULE_9__ = __webpack_require__(/*! ./routes */ "./resources/js/routes.js");
-/* harmony import */ var _requester__WEBPACK_IMPORTED_MODULE_10__ = __webpack_require__(/*! ./requester */ "./resources/js/requester.js");
+/* harmony import */ var _plugins_requester__WEBPACK_IMPORTED_MODULE_8__ = __webpack_require__(/*! ./plugins/requester */ "./resources/js/plugins/requester.js");
+/* harmony import */ var _store__WEBPACK_IMPORTED_MODULE_9__ = __webpack_require__(/*! ./store */ "./resources/js/store/index.js");
+/* harmony import */ var _routes__WEBPACK_IMPORTED_MODULE_10__ = __webpack_require__(/*! ./routes */ "./resources/js/routes.js");
 
 
 
@@ -78008,23 +78009,25 @@ __webpack_require__.r(__webpack_exports__);
 
 
 
+ // import requester from './requester';
 
 /*window._ = lodash;*/
+// window.requester = requester;
+// window.axios = axios;
+// window.axios.defaults.headers.common['X-Requested-With'] = 'XMLHttpRequest';
+// window.Vue = Vue;
 
-window.requester = _requester__WEBPACK_IMPORTED_MODULE_10__["default"];
-window.axios = axios__WEBPACK_IMPORTED_MODULE_1___default.a;
-window.axios.defaults.headers.common['X-Requested-With'] = 'XMLHttpRequest';
-window.Vue = vue__WEBPACK_IMPORTED_MODULE_2___default.a;
+vue__WEBPACK_IMPORTED_MODULE_2___default.a.use(_plugins_requester__WEBPACK_IMPORTED_MODULE_8__["default"]);
 vue__WEBPACK_IMPORTED_MODULE_2___default.a.use(vuex__WEBPACK_IMPORTED_MODULE_3__["default"]);
 vue__WEBPACK_IMPORTED_MODULE_2___default.a.use(vue_router__WEBPACK_IMPORTED_MODULE_4__["default"]);
 vue__WEBPACK_IMPORTED_MODULE_2___default.a.use(vue_axios__WEBPACK_IMPORTED_MODULE_5___default.a, axios__WEBPACK_IMPORTED_MODULE_1___default.a);
 var router = new vue_router__WEBPACK_IMPORTED_MODULE_4__["default"]({
   mode: 'history',
-  routes: _routes__WEBPACK_IMPORTED_MODULE_9__["default"]
+  routes: _routes__WEBPACK_IMPORTED_MODULE_10__["default"]
 });
 vue__WEBPACK_IMPORTED_MODULE_2___default.a.config.productionTip = false;
 new vue__WEBPACK_IMPORTED_MODULE_2___default.a({
-  store: _store__WEBPACK_IMPORTED_MODULE_8__["default"],
+  store: _store__WEBPACK_IMPORTED_MODULE_9__["default"],
   router: router,
   vuetify: _plugins_vuetify__WEBPACK_IMPORTED_MODULE_7__["default"],
   el: '#app',
@@ -79014,6 +79017,53 @@ __webpack_require__.r(__webpack_exports__);
 
 /***/ }),
 
+/***/ "./resources/js/plugins/requester.js":
+/*!*******************************************!*\
+  !*** ./resources/js/plugins/requester.js ***!
+  \*******************************************/
+/*! exports provided: default */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony import */ var _utils_request__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ../utils/request */ "./resources/js/utils/request.js");
+
+var Requester = {
+  install: function install(Vue, options) {
+    var credentialsList = {};
+    var headers = {
+      'X-Requested-With': 'application/json',
+      'Accept': 'application/json',
+      'Authorization': null
+    };
+
+    Vue.requesterCredentials = function (credentials) {
+      credentialsList = credentials;
+      headers.Authorization = credentials.token_type + ' ' + credentials.token;
+    };
+
+    Vue.requesterGET = function (url) {
+      var data = arguments.length > 1 && arguments[1] !== undefined ? arguments[1] : {};
+      return Object(_utils_request__WEBPACK_IMPORTED_MODULE_0__["requestGet"])(url, data, headers);
+    };
+
+    Vue.requesterPOST = function (url) {
+      var data = arguments.length > 1 && arguments[1] !== undefined ? arguments[1] : {};
+      return Object(_utils_request__WEBPACK_IMPORTED_MODULE_0__["requestPost"])(url, data, headers);
+    }; // Vue.mixin({ created() {} });
+
+
+    Vue.prototype.$requester = {
+      get: Vue.requesterGET,
+      post: Vue.requesterPOST,
+      credentials: Vue.requesterCredentials
+    };
+  }
+};
+/* harmony default export */ __webpack_exports__["default"] = (Requester);
+
+/***/ }),
+
 /***/ "./resources/js/plugins/vuetify.js":
 /*!*****************************************!*\
   !*** ./resources/js/plugins/vuetify.js ***!
@@ -79108,187 +79158,6 @@ vue__WEBPACK_IMPORTED_MODULE_0___default.a.use(vuetify_lib__WEBPACK_IMPORTED_MOD
     dark: true
   }
 }));
-
-/***/ }),
-
-/***/ "./resources/js/requester.js":
-/*!***********************************!*\
-  !*** ./resources/js/requester.js ***!
-  \***********************************/
-/*! exports provided: requestPost, requestGet, default */
-/***/ (function(module, __webpack_exports__, __webpack_require__) {
-
-"use strict";
-__webpack_require__.r(__webpack_exports__);
-/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "requestPost", function() { return requestPost; });
-/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "requestGet", function() { return requestGet; });
-/* harmony import */ var _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! @babel/runtime/regenerator */ "./node_modules/@babel/runtime/regenerator/index.js");
-/* harmony import */ var _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(_babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0__);
-/* harmony import */ var _utils_utils__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./utils/utils */ "./resources/js/utils/utils.js");
-
-
-function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
-
-function _defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } }
-
-function _createClass(Constructor, protoProps, staticProps) { if (protoProps) _defineProperties(Constructor.prototype, protoProps); if (staticProps) _defineProperties(Constructor, staticProps); return Constructor; }
-
-function ownKeys(object, enumerableOnly) { var keys = Object.keys(object); if (Object.getOwnPropertySymbols) { var symbols = Object.getOwnPropertySymbols(object); if (enumerableOnly) symbols = symbols.filter(function (sym) { return Object.getOwnPropertyDescriptor(object, sym).enumerable; }); keys.push.apply(keys, symbols); } return keys; }
-
-function _objectSpread(target) { for (var i = 1; i < arguments.length; i++) { var source = arguments[i] != null ? arguments[i] : {}; if (i % 2) { ownKeys(source, true).forEach(function (key) { _defineProperty(target, key, source[key]); }); } else if (Object.getOwnPropertyDescriptors) { Object.defineProperties(target, Object.getOwnPropertyDescriptors(source)); } else { ownKeys(source).forEach(function (key) { Object.defineProperty(target, key, Object.getOwnPropertyDescriptor(source, key)); }); } } return target; }
-
-function _defineProperty(obj, key, value) { if (key in obj) { Object.defineProperty(obj, key, { value: value, enumerable: true, configurable: true, writable: true }); } else { obj[key] = value; } return obj; }
-
-function asyncGeneratorStep(gen, resolve, reject, _next, _throw, key, arg) { try { var info = gen[key](arg); var value = info.value; } catch (error) { reject(error); return; } if (info.done) { resolve(value); } else { Promise.resolve(value).then(_next, _throw); } }
-
-function _asyncToGenerator(fn) { return function () { var self = this, args = arguments; return new Promise(function (resolve, reject) { var gen = fn.apply(self, args); function _next(value) { asyncGeneratorStep(gen, resolve, reject, _next, _throw, "next", value); } function _throw(err) { asyncGeneratorStep(gen, resolve, reject, _next, _throw, "throw", err); } _next(undefined); }); }; }
-
-
-var method = {
-  get: 'GET',
-  post: 'POST',
-  put: 'PUT',
-  "delete": 'DELETE',
-  option: 'OPTION'
-};
-var configuration = {
-  method: method.get,
-  // no-cors, cors, *same-origin
-  mode: 'cors',
-  // *default, no-cache, reload, force-cache, only-if-cached
-  cache: 'no-cache',
-  // include, *same-origin, omit
-  credentials: 'same-origin',
-  // 'Content-Type': 'application/x-www-form-urlencoded',
-  headers: {
-    'Content-Type': 'application/json'
-  },
-  // manual, *follow, error
-  redirect: 'follow',
-  // no-referrer, *client
-  referrer: 'no-referrer',
-  // data query string
-  body: null
-};
-
-var request =
-/*#__PURE__*/
-function () {
-  var _ref = _asyncToGenerator(
-  /*#__PURE__*/
-  _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default.a.mark(function _callee2(url, _config) {
-    var config;
-    return _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default.a.wrap(function _callee2$(_context2) {
-      while (1) {
-        switch (_context2.prev = _context2.next) {
-          case 0:
-            config = _objectSpread({}, configuration, {}, _config);
-
-            if (_config.headers) {
-              config.headers = _objectSpread({}, configuration.headers, {}, _config.headers);
-            }
-
-            _context2.next = 4;
-            return fetch(url, config).then(
-            /*#__PURE__*/
-            function () {
-              var _ref2 = _asyncToGenerator(
-              /*#__PURE__*/
-              _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default.a.mark(function _callee(response) {
-                return _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default.a.wrap(function _callee$(_context) {
-                  while (1) {
-                    switch (_context.prev = _context.next) {
-                      case 0:
-                        _context.next = 2;
-                        return response.json();
-
-                      case 2:
-                        return _context.abrupt("return", _context.sent);
-
-                      case 3:
-                      case "end":
-                        return _context.stop();
-                    }
-                  }
-                }, _callee);
-              }));
-
-              return function (_x3) {
-                return _ref2.apply(this, arguments);
-              };
-            }());
-
-          case 4:
-            return _context2.abrupt("return", _context2.sent);
-
-          case 5:
-          case "end":
-            return _context2.stop();
-        }
-      }
-    }, _callee2);
-  }));
-
-  return function request(_x, _x2) {
-    return _ref.apply(this, arguments);
-  };
-}();
-
-var requestPost = function requestPost() {
-  var url = arguments.length > 0 && arguments[0] !== undefined ? arguments[0] : '';
-  var data = arguments.length > 1 && arguments[1] !== undefined ? arguments[1] : null;
-  var headers = arguments.length > 2 && arguments[2] !== undefined ? arguments[2] : {};
-  return request(url, {
-    method: method.post,
-    body: data ? JSON.stringify(data) : data,
-    headers: headers
-  });
-};
-var requestGet = function requestGet() {
-  var url = arguments.length > 0 && arguments[0] !== undefined ? arguments[0] : '';
-  var data = arguments.length > 1 && arguments[1] !== undefined ? arguments[1] : null;
-  var headers = arguments.length > 2 && arguments[2] !== undefined ? arguments[2] : {};
-  data = data ? '?' + Object(_utils_utils__WEBPACK_IMPORTED_MODULE_1__["serialize"])(data) : '';
-  return request(url + data, {
-    method: method.get,
-    headers: headers
-  });
-};
-
-var Requester =
-/*#__PURE__*/
-function () {
-  function Requester() {
-    _classCallCheck(this, Requester);
-  }
-
-  _createClass(Requester, [{
-    key: "credentials",
-    value: function credentials(_credentials) {
-      this._credentials = _credentials;
-      this.headers = {
-        'Accept': 'application/json',
-        'Authorization': 'Bearer ' + this._credentials.token
-      };
-    }
-  }, {
-    key: "get",
-    value: function get(url) {
-      var data = arguments.length > 1 && arguments[1] !== undefined ? arguments[1] : {};
-      return requestGet(url, data, this.headers);
-    }
-  }, {
-    key: "post",
-    value: function post(url) {
-      var data = arguments.length > 1 && arguments[1] !== undefined ? arguments[1] : {};
-      return requestPost(url, data, this.headers);
-    }
-  }]);
-
-  return Requester;
-}();
-
-/* harmony default export */ __webpack_exports__["default"] = (new Requester());
 
 /***/ }),
 
@@ -79441,11 +79310,14 @@ var DOMAIN_LIST = [{
 
 "use strict";
 __webpack_require__.r(__webpack_exports__);
+/* harmony import */ var vue__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! vue */ "./node_modules/vue/dist/vue.common.js");
+/* harmony import */ var vue__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(vue__WEBPACK_IMPORTED_MODULE_0__);
 function ownKeys(object, enumerableOnly) { var keys = Object.keys(object); if (Object.getOwnPropertySymbols) { var symbols = Object.getOwnPropertySymbols(object); if (enumerableOnly) symbols = symbols.filter(function (sym) { return Object.getOwnPropertyDescriptor(object, sym).enumerable; }); keys.push.apply(keys, symbols); } return keys; }
 
 function _objectSpread(target) { for (var i = 1; i < arguments.length; i++) { var source = arguments[i] != null ? arguments[i] : {}; if (i % 2) { ownKeys(source, true).forEach(function (key) { _defineProperty(target, key, source[key]); }); } else if (Object.getOwnPropertyDescriptors) { Object.defineProperties(target, Object.getOwnPropertyDescriptors(source)); } else { ownKeys(source).forEach(function (key) { Object.defineProperty(target, key, Object.getOwnPropertyDescriptor(source, key)); }); } } return target; }
 
 function _defineProperty(obj, key, value) { if (key in obj) { Object.defineProperty(obj, key, { value: value, enumerable: true, configurable: true, writable: true }); } else { obj[key] = value; } return obj; }
+
 
 var credentialsKeys = {
   expires_at: null,
@@ -79492,7 +79364,7 @@ var credentialsKeys = {
         if (payload[keys[i]]) credentials[keys[i]] = payload[keys[i]];else return false;
       }
 
-      requester.credentials(credentials);
+      vue__WEBPACK_IMPORTED_MODULE_0___default.a.requesterCredentials(credentials);
       localStorage.setItem('credentials', JSON.stringify(credentials)); //todo: rm
 
       state.isAuthorizedUser = true;
@@ -79874,8 +79746,8 @@ if(false) {}
 /*! no static exports found */
 /***/ (function(module, exports, __webpack_require__) {
 
-__webpack_require__(/*! /var/www/sunplatform.loc/resources/js/app.js */"./resources/js/app.js");
-module.exports = __webpack_require__(/*! /var/www/sunplatform.loc/resources/sass/app.scss */"./resources/sass/app.scss");
+__webpack_require__(/*! /var/www/sadmin.loc/resources/js/app.js */"./resources/js/app.js");
+module.exports = __webpack_require__(/*! /var/www/sadmin.loc/resources/sass/app.scss */"./resources/sass/app.scss");
 
 
 /***/ })

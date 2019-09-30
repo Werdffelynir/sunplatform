@@ -1,4 +1,4 @@
-import {serialize} from './utils';
+import { serialize } from './utils';
 
 const method = {
     get: 'GET',

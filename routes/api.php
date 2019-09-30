@@ -33,10 +33,10 @@ Route::group(['namespace' => 'Api'], function () {
     });
 
     Route::group(['namespace' => 'Profile'], function () {
-        Route::get('profile', 'ProfileController');
+        Route::get('/profile', 'ProfileController');
     });
 
     Route::group(['namespace' => 'Domains'], function () {
-        Route::get('domains', 'DomainsController');
+        Route::get('/domains', 'DomainsController');
     });
 });

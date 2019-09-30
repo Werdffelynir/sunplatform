@@ -8,17 +8,19 @@ import VueAxios from 'vue-axios';
 
 import AppComponent from './components/App.vue';
 import vuetify from './plugins/vuetify'
+import Requester from './plugins/requester'
 import store from './store';
 import routes from './routes';
-import requester from './requester';
+// import requester from './requester';
 
 
 /*window._ = lodash;*/
-window.requester = requester;
-window.axios = axios;
-window.axios.defaults.headers.common['X-Requested-With'] = 'XMLHttpRequest';
-window.Vue = Vue;
+// window.requester = requester;
+// window.axios = axios;
+// window.axios.defaults.headers.common['X-Requested-With'] = 'XMLHttpRequest';
+// window.Vue = Vue;
 
+Vue.use(Requester);
 Vue.use(Vuex);
 Vue.use(VueRouter);
 Vue.use(VueAxios, axios);

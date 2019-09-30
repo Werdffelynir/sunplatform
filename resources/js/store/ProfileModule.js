@@ -1,3 +1,4 @@
+import Vue from 'vue';
 
 const credentialsKeys = {
     expires_at: null,
@@ -46,7 +47,8 @@ export default {
                 else
                     return false;
             }
-            requester.credentials(credentials);
+
+            Vue.requesterCredentials(credentials);
             localStorage.setItem('credentials', JSON.stringify(credentials));
 
             //todo: rm

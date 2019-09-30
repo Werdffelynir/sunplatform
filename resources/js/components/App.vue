@@ -41,19 +41,19 @@
         props: ['csrf'],
 
         mounted () {
+
+            // todo: init app. need replace to separate module
             this.$store.subscribe((payload, state) => {
                 if(payload.type === "profile/addCredentials") {
-
-                    requester.get('/api/user').then((response)=>{
+                    this.$requester.get('/api/user').then((response)=>{
                         this.$store.commit('profile/addUser', response );
                     }).catch((err)=>{console.log('err', err)})
 
                 }
             });
-
             const credentials = JSON.parse(localStorage.getItem('credentials'));
             if (credentials) {
-                requester.credentials( credentials );
+                this.$requester.credentials( credentials );
                 this.$store.commit('profile/addCredentials', credentials );
 
             }
@@ -77,7 +77,7 @@
         computed: {
 
             // getters
-            isAuth() { return this.$store.getters['profile/credentials'] },
+            isAuth() { return !!this.$store.getters['profile/credentials'].token },
         },
 
         components: {
