@@ -77,7 +77,9 @@
         computed: {
 
             // getters
-            isAuth() { return !!this.$store.getters['profile/credentials'].token },
+            isAuth() { return true;
+            //!!this.$store.getters['profile/credentials'].token
+            },
         },
 
         components: {
