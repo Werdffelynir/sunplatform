@@ -43,21 +43,16 @@
                 </VCol>
             </VRow>
         </VForm>
-
-        <VSnackbar top :multi-line="true" v-model="snackbar" >
-            <h2>
-                <span v-if="errorMessages" class="red--text">{{ errorMessages }}</span>
-                <span v-if="successMessages">{{ successMessages }}</span>
-            </h2>
-            <VBtn color="pink" text @click="snackbar = errorMessages = successMessages = false">Close</VBtn>
-        </VSnackbar>
+        <Notification :error='true' :message="message"></Notification>
     </VCard>
 </template>
 <style>
 
 </style>
 <script>
+
     import { requestPost } from '../../utils/request';
+    import Notification from "../common/Notification";
 
     export default {
 
@@ -67,6 +62,7 @@
 
         data () {
             return {
+                message: null,
                 show: true,
                 valid: false,
                 password: 'admin@admin.com',
@@ -102,7 +98,7 @@
                             if (response && this.gettersIsAuthorizedUser()) {
                                 this.show = false;
                                 this.snackbar = true;
-                                this.successMessages = 'Gracia Login is success. Welcome to system.';
+                                this.message = 'Gracia Login is success. Welcome to system.';
 
                                 setTimeout(()=>
                                     this.$router.push('/'),3000);
@@ -138,6 +134,8 @@
 
         computed: {},
 
-        components: {},
+        components: {
+            Notification
+        },
     }
 </script>

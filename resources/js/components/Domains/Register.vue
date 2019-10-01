@@ -78,11 +78,16 @@
 
                 </VCol>
             </VRow>
-
         </VCardText>
+<!--        <ErrorNotification :datatosnack="defaultsnack" :onClick="snackbarClosed" errorMessages="Bad" successMessages="Good"></ErrorNotification>-->
+
+        <Notification :error='true' :message="message"></Notification>
     </VCard>
 </template>
 <script>
+
+    import Error from "../common/Error";
+    import Notification from "../common/Notification";
 
     export default {
 
@@ -97,9 +102,13 @@
               return '';
           }
         },
-
+        components: {
+            Notification,
+        },
         data() {
             return {
+                message: null,
+                defaultsnack: true,
                 valid: '',
                 active: true,
                 address: 'your-domain.com',
@@ -120,9 +129,16 @@
                 if (this.valid) {
                     this.$requester.post('/api/domains/register', data).then((response) => {
                         console.log('response:', data, response);
+
+                        if (response.errors) {
+                            this.message = response.errors;
+                        }
+                        else
+                            this.message = null;
+
                     });
                 }
-            },
+            }
 
         }
     }
