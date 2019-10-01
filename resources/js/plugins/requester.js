@@ -6,11 +6,10 @@ const Requester = {
 
         let credentialsList = {};
         const headers = {
-            'X-Requested-With': 'application/json',
+            'X-Requested-With': 'XMLHttpRequest',
             'Accept': 'application/json',
             'Authorization': null,
         };
-
         Vue.requesterCredentials = (credentials) => {
             credentialsList = credentials;
             headers.Authorization = credentials.token_type + ' ' + credentials.token
