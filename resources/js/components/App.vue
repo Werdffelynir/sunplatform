@@ -34,7 +34,7 @@
 <script>
     import SidebarComponent from './common/Sidebar.vue';
     import MenuComponent from './common/Menu.vue';
-    import { URL_GET_USER } from '../api';
+    import {getCredentials, init} from '../services/auth.service';
 
     export default {
         name: 'app-component',
@@ -42,21 +42,8 @@
         props: ['csrf'],
 
         mounted () {
-
             // todo: init app. need replace to separate module
-            this.$store.subscribe((payload, state) => {
-                if(payload.type === "profile/addCredentials") {
-                    this.$requester.get(URL_GET_USER).then((response)=>{
-                        this.$store.commit('profile/addUser', response );
-                    }).catch((err)=>{console.log('err', err)})
-                }
-            });
-            const credentials = JSON.parse(localStorage.getItem('credentials'));
-            if (credentials) {
-                this.$requester.credentials( credentials );
-                this.$store.commit('profile/addCredentials', credentials );
-
-            }
+            init();
         },
 
         data (vueAppComponent) {
@@ -75,10 +62,8 @@
         watch: {},
 
         computed: {
-
-            // getters
-            isAuth() { return true;
-            //!!this.$store.getters['profile/credentials'].token
+            isAuth() {
+                return getCredentials() && getCredentials().token;
             },
         },
 

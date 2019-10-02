@@ -2,7 +2,7 @@ import Vue from 'vue'
 import Vuex from 'vuex'
 import UIModule from './UIModule'
 import DomainModule from './DomainModule'
-import ProfileModule from './ProfileModule'
+import ProfileModule from './Profile'
 
 
 Vue.use(Vuex);

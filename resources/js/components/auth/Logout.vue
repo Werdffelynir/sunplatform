@@ -1,7 +1,7 @@
 <template>
 </template>
 <script>
-    import { requestPost } from '../../utils/request';
+    import { requestPost } from '../../util/request';
 
     export default {
 

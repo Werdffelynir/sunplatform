@@ -7,12 +7,8 @@
         </VAvatar>
         <div v-if="fileIsError" class="errors-messages">
             <div v-for="type in fileErrorTypes">
-                <div v-if="type === 'types'">
-                    types - Lorem ipsum dolor sit amet.
-                </div >
-                <div v-if="type === 'size'">
-                    size - Lorem ipsum dolor sit amet.
-                </div >
+                <div v-if="type === 'types'">Error with file type</div >
+                <div v-if="type === 'size'">Error with file size</div >
             </div>
         </div>
 
@@ -42,17 +38,19 @@
 </style>
 <script>
     import avatarImages from '../../../assets/images/avatar.png';
-    import createVirtualForm from "../../utils/virtualform";
+    import createVirtualForm from "../../util/virtualform";
+    import {getterWith, getterWithModule} from '../../store/getterWith';
+    import {GET_USER} from '../../store/Profile/getters';
+    import {commitWith, commitWithModule} from '../../store/commitWith';
+    import {SET_USER} from '../../store/Profile/mutations';
 
     export default {
         template: '#avatar-template',
-
         name: 'avatar-component',
-
         props: ['uploader'],
-
         mounted() {
             console.log('Component mounted.')
+            console.log(this.avatar)
         },
         data() {
             return {
@@ -60,43 +58,34 @@
                 fileErrorTypes: [],
                 displayToggle: 'block'
             }
-    },
+        },
         computed: {
             avatar() {
-                return this.$store.getters['profile/user'].avatar || avatarImages;
+                const profile = getterWithModule('profile', GET_USER);
+                if (profile && profile.avatar) {
+                    const img = new Image();
+                    img.src = profile.avatar;
+                    return img.src;
+                } else
+                    return avatarImages;
             }
-
         },
         methods: {
             update() {
+                const reader = new FileReader();
                 const form = createVirtualForm();
-
-
                 form.selectFile((files, err, errTypes) => {
-                    // const form = new FormData();
-                    // form.append('file', JSON.stringify(files));
                     this.fileIsError = err;
                     this.fileErrorTypes = errTypes;
-
-
-                    const reader = new FileReader();
                     if (!err) {
                         reader.onloadend = () => {
-
-                            this.$store.commit('profile/addUser', {
+                            commitWithModule('profile', SET_USER, {
                                 avatar: reader.result,
                             });
-
                         };
-                    };
+                    }
                     reader.readAsDataURL(files[0]);
-                    // this.displayToggle = 'none'
-                    console.log(err, errTypes, files);
                 })
-
-
-
-
             }
         }
     }

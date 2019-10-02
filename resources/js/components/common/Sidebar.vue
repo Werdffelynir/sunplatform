@@ -5,9 +5,7 @@
             <h3 class="sb-title">Profile</h3>
 
             <VRow justify="space-around">
-                <VAvatar color="orange" size="62">
-                    <span class="white--text headline">62</span>
-                </VAvatar>
+                <avatar-component />
             </VRow>
             <div class="text-center">
                 <div>{{user.name}}</div>
@@ -52,6 +50,7 @@
 
     import '../../../sass/components/sidebar.scss';
     import Avatar from '../common/Avatar';
+    import {GET_USER} from '../../store/Profile/getters';
 
     export default {
 
@@ -72,7 +71,7 @@
 
         computed: {
             user: function () {
-                return this.$store.getters['profile/user']
+                return this.$store.getters['profile/' + GET_USER]
             }
         },
 
