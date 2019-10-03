@@ -1,7 +1,7 @@
 import Vue from 'vue'
 import Vuex from 'vuex'
-import UIModule from './UIModule'
-import DomainModule from './DomainModule'
+import UIModule from './UI'
+import DomainModule from './Domains'
 import ProfileModule from './Profile'
 
 

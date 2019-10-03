@@ -1,4 +1,4 @@
-<template id="default-template">
+<template id="avatar-template">
 
     <div class="text-center">
         <VAvatar size="130">
@@ -27,9 +27,13 @@
         cursor: pointer;
     }
     .update-images span {
-        cursor: pointer;
-        position: relative;
-        top: -8px;
+        position: absolute;
+        top: 24px;
+        left: 36px;
+        color: darkorange;
+        font-size: 13px;
+        font-family: monospace;
+        text-transform: uppercase;
     }
     .errors-messages {
         padding-top: 50px;
@@ -39,19 +43,16 @@
 <script>
     import avatarImages from '../../../assets/images/avatar.png';
     import createVirtualForm from "../../util/virtualform";
-    import {getterWith, getterWithModule} from '../../store/getterWith';
     import {GET_USER} from '../../store/Profile/getters';
-    import {commitWith, commitWithModule} from '../../store/commitWith';
     import {SET_USER} from '../../store/Profile/mutations';
+    import {getterWithModule} from '../../store/getterWith';
+    import {commitWithModule} from '../../store/commitWith';
 
     export default {
         template: '#avatar-template',
         name: 'avatar-component',
         props: ['uploader'],
-        mounted() {
-            console.log('Component mounted.')
-            console.log(this.avatar)
-        },
+        mounted() {},
         data() {
             return {
                 fileIsError: false,

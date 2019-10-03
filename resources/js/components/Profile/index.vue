@@ -102,7 +102,6 @@
         mounted() {},
         methods: {
             saveProfileData() {
-                console.log(this.userForm.valid, this.user);
                 if (this.userForm.valid) {
                     commitWithModule('profile', SET_USER, this.user);
                 }

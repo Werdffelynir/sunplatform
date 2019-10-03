@@ -5,9 +5,9 @@ import {commitWith} from '../store/commitWith';
 import {subscribeTo} from '../store/subscribeTo';
 
 export const subscribersStart = function () {
-    subscribeTo(['profile', SET_CREDENTIALS].join('/'), (type, state) => {
+    subscribeTo('profile/' + SET_CREDENTIALS, (type, state) => {
         Vue.requesterGET(URL_GET_USER).then((response)=>{
-            commitWith(['profile', SET_USER].join('/'), response);
+            commitWith('profile/' + SET_USER, response);
         }).catch((err)=>{
             console.log('err', err)
         })

@@ -1,65 +1,79 @@
 <template>
-    <div class="container">
+    <VCard>
+        <ServiceToolbar
+            title="Registered Domains">
+            <VTooltip bottom>
+                <template v-slot:activator="{ on }">
+                    <router-link to="/domains/register">
+                        <VBtn>
+                            <VIcon color="primary" dark v-on="on">mdi-plus-circle</VIcon>
+                            <span>Add new domain</span>
+                        </VBtn>
+                    </router-link>
+                </template>
+                <span>Add new domain, (Lorem ipsum dolor sit amet.)</span>
+            </VTooltip>
 
-        <VToolbar>
-            <VToolbarTitle>Registered Domains</VToolbarTitle>
-            <div class="flex-grow-1"></div>
-            <VToolbarItems></VToolbarItems>
-            <router-link to="/domains/register">
-            <VBtn icon>
-                <VIcon>mdi-plus-circle</VIcon>
-            </VBtn>
-            </router-link>
-        </VToolbar>
+        </ServiceToolbar>
+<!--        <div class="toolbar d-flex justify-space-between mb-6">
+            <div class="toolbar-title">
+                <span>Registered Domains</span>
+            </div>
+            <div class="toolbar-actions">
 
-        <VRow v-for="domain in domains" :key="domain.domain + domain.id">
-            <VCol>
-                <VCard>
-                    <VCardTitle>{{domain.domain}}</VCardTitle>
-                    <VCardText class="pb-0">active: {{domain.active}}</VCardText>
-                    <VCardText class="pt-0 pb-0">created at: {{domain.create_at}}</VCardText>
-                    <VCardText class="pt-0">active to: {{domain.active_to}}</VCardText>
+            </div>
+        </div>-->
+
+
+
+
+        <VRow justify="center" v-for="domain in domainsList" :key="domain.id">
+            <VCol cols="12" md="4" >
+                <VCard red color="grey darken-2">
+                    <VCardTitle>VCardTitle</VCardTitle>
+                    <VCardText class="pb-0">Status: Disable</VCardText>
+                    <VCardText class="pt-0 pb-0">Was Created: </VCardText>
+                    <VCardText class="pt-0">Active to: </VCardText>
                     <VDivider></VDivider>
                     <VCardActions>
-                       <VBtn text v-on:click="navigateToDomainSettings(domain.id)">Settings</VBtn>
-<!--                        <router-link to="domains/settings">Settings</router-link>-->
+                       <VBtn text v-on:click="">Settings</VBtn>
                     </VCardActions>
                 </VCard>
             </VCol>
-            <VCol>
-                <VCard color="#37474F">
-                    <VCardTitle>Services</VCardTitle>
-                    <VDivider></VDivider>
-                    <VRow class="no-gutters" v-for="service in services" :key="service.id">
-                        <VCol>
-                        <VCardActions>
-                            <VBtn text v-on:click="navigateToServiceSettings"><VIcon>mdi-settings</VIcon></VBtn>
-                        </VCardActions>
-                        </VCol>
-                        <VCol><VCardText>{{service.name}}</VCardText></VCol>
-                        <VCol><VCardText>{{service.active}}</VCardText></VCol>
-                    </VRow>
-                </VCard>
-            </VCol>
         </VRow>
-    </div>
+    </VCard>
 </template>
 <style>
     .domains {
         width: 100%;
         padding: 0 2rem 0 1rem;
     }
+    .toolbar-title {
+
+    }
+    .toolbar-title span {
+        font-size: 36px;
+        font-family: "Nunito", "Roboto", sans-serif;
+        padding-left: 10px;
+    }
+    .toolbar-actions {
+        font-size: 30px;
+        padding-left: 10px;
+        padding-right: 20px;
+    }
 </style>
 <script>
 
     import Settings from "./Settings"
     import { mapMutations } from 'vuex';
+    import {GET_DOMAINS_LIST} from '../../store/Domains/getters';
+    import ServiceToolbar from '../common/ServiceToolbar';
 
     export default {
         name: 'domains-component',
 
         components: {
-
+            ServiceToolbar: ServiceToolbar
         },
         data () {
             return {
@@ -67,25 +81,25 @@
             }
         },
         methods: {
-            ...mapMutations('domains', ['setIndex']),
+/*            ...mapMutations('domains', ['setIndex']),
             navigateToDomainSettings(id) {
                 this.$router.push('domains/settings')
                 this.setIndex(id);
             },
             navigateToServiceSettings() {
                 this.$router.push('services/settings')
-            }
+            }*/
         },
         computed: {
-            domains () {
-                return this.$store.getters['domains/getlist']
+            domainsList () {
+                return this.$store.getters['domains/' + GET_DOMAINS_LIST]
             },
-            services () {
-                let getlist = this.$store.getters['domains/getlist'];
-                for (let service of getlist) {
-                   return service.services
-                }
-            }
+            // services () {
+            //     let getlist = this.$store.getters['domains/getlist'];
+            //     for (let service of getlist) {
+            //        return service.services
+            //     }
+            // }
 
         },
         mounted() {
