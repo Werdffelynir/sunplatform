@@ -28,7 +28,6 @@
 <script>
 
     import avatar from '../../../../resources/assets/images/avatar.png';
-    import store from '../../store/DomainModule';
 
     export default {
         name: 'servicessettings-component',
@@ -37,7 +36,7 @@
         },
         computed: {
             showName() {
-                return store.state.domainName;
+                return 'store.state.domainName';
             }
         },
         data() {

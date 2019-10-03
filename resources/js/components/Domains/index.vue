@@ -1,6 +1,7 @@
 <template>
-    <VCard>
-        <ServiceToolbar
+    <div>
+
+        <service-toolbar-component
             title="Registered Domains">
             <VTooltip bottom>
                 <template v-slot:activator="{ on }">
@@ -13,35 +14,12 @@
                 </template>
                 <span>Add new domain, (Lorem ipsum dolor sit amet.)</span>
             </VTooltip>
+        </service-toolbar-component>
 
-        </ServiceToolbar>
-<!--        <div class="toolbar d-flex justify-space-between mb-6">
-            <div class="toolbar-title">
-                <span>Registered Domains</span>
-            </div>
-            <div class="toolbar-actions">
-
-            </div>
-        </div>-->
-
-
-
-
-        <VRow justify="center" v-for="domain in domainsList" :key="domain.id">
-            <VCol cols="12" md="4" >
-                <VCard red color="grey darken-2">
-                    <VCardTitle>VCardTitle</VCardTitle>
-                    <VCardText class="pb-0">Status: Disable</VCardText>
-                    <VCardText class="pt-0 pb-0">Was Created: </VCardText>
-                    <VCardText class="pt-0">Active to: </VCardText>
-                    <VDivider></VDivider>
-                    <VCardActions>
-                       <VBtn text v-on:click="">Settings</VBtn>
-                    </VCardActions>
-                </VCard>
-            </VCol>
-        </VRow>
-    </VCard>
+        <div v-for="domain in domainsList" :key="domain.id" >
+            <domain-settings-component :domain="domain"/>
+        </div>
+    </div>
 </template>
 <style>
     .domains {
@@ -67,13 +45,15 @@
     import Settings from "./Settings"
     import { mapMutations } from 'vuex';
     import {GET_DOMAINS_LIST} from '../../store/Domains/getters';
-    import ServiceToolbar from '../common/ServiceToolbar';
+    import ServiceToolbarComponent from '../common/ServiceToolbar';
+    import DomainSettingsComponent from './Settings';
 
     export default {
         name: 'domains-component',
 
         components: {
-            ServiceToolbar: ServiceToolbar
+            'service-toolbar-component': ServiceToolbarComponent,
+            'domain-settings-component': DomainSettingsComponent,
         },
         data () {
             return {
