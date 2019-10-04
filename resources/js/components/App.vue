@@ -36,7 +36,7 @@
     import NotificationComponent from './common/Notification.vue';
     import SidebarComponent from './common/Sidebar.vue';
     import MenuComponent from './common/Menu.vue';
-    import {getCredentials, init} from '../services/auth.service';
+    import {getCredentials, hasUserCredentials, init} from '../services/auth.service';
     import {setNotificationWithError} from '../services/base.service';
 
     export default {
@@ -64,7 +64,9 @@
         watch: {},
 
         computed: {
-            isAuth() {return getCredentials() && getCredentials().token},
+            isAuth() {
+                return hasUserCredentials()
+            },
         },
 
         components: {

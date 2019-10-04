@@ -6,7 +6,7 @@ import {URL_GET_USER, URL_POST_LOGIN} from '../api';
 import {SET_CREDENTIALS, SET_USER} from '../store/Profile/mutations';
 import {commitWith, commitWithModule} from '../store/commitWith';
 import {subscribersStart} from './auth.subscribers.service';
-import {GET_CREDENTIALS} from '../store/Profile/getters';
+import {GET_CREDENTIALS, GET_USER} from '../store/Profile/getters';
 import {getterWithModule} from '../store/getterWith';
 
 
@@ -35,7 +35,7 @@ export const LocalStoreCredentials = {
 const initializeStack = {
     credentials: (credentials) => {
         Vue.requesterCredentials(credentials);
-        commitWith(['profile', SET_CREDENTIALS].join('/'), credentials);
+        commitWith('profile/' + SET_CREDENTIALS, credentials);
         LocalStoreCredentials.set(credentials);
     }
 };
@@ -55,28 +55,33 @@ export const init = () => {
 
 
 export const makeLogin = (data) => {
+
     Vue.requesterPOST(URL_POST_LOGIN, data).then((response)=>{
         if (response.error) {
             // TODO: ErrorWrapper
-            console.log('response error', response)
+            console.log('makeLogin response error',response);
         } else {
-            if (LocalStoreCredentials.validate(response)) {
-                initializeStack.credentials(response);
-                $router.push('/');
+            const credentials = LocalStoreCredentials.validate(response);
+            if (credentials) {
+                initializeStack.credentials(credentials);
+            } else {
+                // TODO: ErrorWrapper
+                console.log('makeLogin credentials error',response);
             }
         }
     }).catch((err)=>{
         // TODO: ErrorWrapper
         console.log('requesterPOST error', err)
     });
+
 };
 
 
 export const makeLogout = () => {
     Vue.requesterCredentialsRemove();
     LocalStoreCredentials.remove();
-    commitWithModule('profile', SET_USER, state.user);
-    commitWithModule('profile', SET_CREDENTIALS, null);
+    commitWithModule('profile', SET_USER, false);
+    commitWithModule('profile', SET_CREDENTIALS, false);
     $router.push('/login');
 };
 
@@ -85,3 +90,8 @@ export const getCredentials = () => {
 };
 
 export const refreshCredentials = () => {};
+
+export const hasUserCredentials = () => {
+
+    return getterWithModule('profile', GET_CREDENTIALS).token && getterWithModule('profile', GET_USER).id ;
+};

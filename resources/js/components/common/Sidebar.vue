@@ -4,11 +4,11 @@
         <div class="sb-container">
             <h3 class="sb-title">Profile</h3>
 
-            <VRow justify="space-around">
+            <VRow class="sb-user-avatar" justify="space-around">
                 <avatar-component />
             </VRow>
-            <div class="text-center">
-                <div>{{user.name}}</div>
+            <div class="sb-user-description text-center">
+                <div>{{user.real_name || user.name}}</div>
                 <div>{{user.email}}</div>
             </div>
         </div>

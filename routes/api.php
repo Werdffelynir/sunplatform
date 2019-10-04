@@ -35,7 +35,7 @@ Route::group(['namespace' => 'Api'], function () {
     Route::group(['namespace' => 'Profile'], function () {
         Route::get('/profile', 'ProfileController')
             ->middleware('auth:api');
-        Route::post('/profile/save', 'ProfileController@update')
+        Route::post('/profile/update', 'ProfileController@update')
             ->middleware('auth:api');
     });
 

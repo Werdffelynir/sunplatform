@@ -26,7 +26,7 @@
                 <VBtn text>register</VBtn>
             </router-link>
 
-            <a to="#logout" v-on:click="logout">
+            <a href="/" v-on:click="logout">
                 <VBtn text>logout</VBtn>
             </a>
         </VToolbarItems>
@@ -50,7 +50,9 @@
         },
 
         methods: {
-            logout() {
+            logout(e) {
+                e.preventDefault();
+                e.stopPropagation();
                 makeLogout()
             },
         },
