@@ -9,7 +9,7 @@ export const subscribersStart = function () {
         Vue.requesterGET(URL_GET_USER).then((response)=>{
             commitWith('profile/' + SET_USER, response);
         }).catch((err)=>{
-            console.log('err', err)
+            console.log('Service subscribersStart "auth.subscribers.service.js" throw error: ', err.message());
         })
     });
 };

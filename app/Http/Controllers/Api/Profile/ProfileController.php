@@ -44,4 +44,9 @@ class ProfileController extends Controller
             'check' => $request->user(),
         ]);
     }
+
+    public function update()
+    {
+
+    }
 }

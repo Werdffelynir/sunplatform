@@ -76,9 +76,7 @@
     export default {
         name: 'domain-settings-component',
         props: ['domain'],
-        mounted() {
-            console.log('domain:', this.domain);
-        },
+        mounted() {},
         methods: {},
         computed: {
             user () {

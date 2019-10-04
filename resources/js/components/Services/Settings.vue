@@ -1,4 +1,4 @@
-<template>
+<template id="service-settings-component">
     <div class="container">
         <h2>Profile settings</h2>
 
@@ -30,9 +30,10 @@
     import avatar from '../../../../resources/assets/images/avatar.png';
 
     export default {
-        name: 'servicessettings-component',
+        template: '#service-settings-component',
+        name: 'service-settings-component',
         mounted() {
-            console.log('Component mounted.')
+            console.log('Component "Services/Settings.vue" mounted.')
         },
         computed: {
             showName() {

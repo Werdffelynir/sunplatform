@@ -1,5 +1,4 @@
 <template>
-
     <VApp>
         <div v-if="isAuth">
             <VNavigationDrawer app clipped-x :width="sidebar ? 250 : 0">
@@ -17,7 +16,7 @@
             </VAppBar>
         </div>
 
-        <VContent class="content-main">
+        <VContent class="content-main pr-4">
             <VContainer class="container-main" fluid>
                 <router-view></router-view>
             </VContainer>

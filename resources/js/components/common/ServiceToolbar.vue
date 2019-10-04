@@ -1,5 +1,5 @@
 <template id="service-toolbar-template">
-    <div class="toolbar d-flex justify-space-between mb-6">
+    <div class="toolbar d-flex justify-space-between mb-2">
         <div class="toolbar-title">
             <span>{{title}}</span>
         </div>

@@ -23,7 +23,7 @@
         name: 'notification-component',
         props: [''],
         mounted() {
-            console.log('Component mounted.')
+            console.log('Component "Notification" mounted.')
         },
         data() {
             return {}
