@@ -33,11 +33,15 @@ Route::group(['namespace' => 'Api'], function () {
     });
 
     Route::group(['namespace' => 'Profile'], function () {
-        Route::get('/profile', 'ProfileController');
+        Route::get('/profile', 'ProfileController')
+            ->middleware('auth:api');
+        Route::post('/profile/save', 'ProfileController@update')
+            ->middleware('auth:api');
     });
 
     Route::group(['namespace' => 'Domains'], function () {
-        Route::get('/domains', 'DomainsController');
+        Route::get('/domains', 'DomainsController')
+            ->middleware('auth:api');
         Route::post('/domains/register', 'DomainsController@register')
             ->middleware('auth:api');
     });

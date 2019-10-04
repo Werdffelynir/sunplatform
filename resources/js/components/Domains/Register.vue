@@ -89,7 +89,7 @@
         name: 'domains-register-component',
 
         mounted() {
-            console.log('Component mounted.')
+            console.log('Component "Domains/Register.vue" mounted.')
         },
 
         computed: {
@@ -119,7 +119,7 @@
 
                 if (this.valid) {
                     this.$requester.post('/api/domains/register', data).then((response) => {
-                        console.log('response:', data, response);
+                        console.log('Register domains data/response:', data, response);
                     });
                 }
             },

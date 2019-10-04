@@ -1,11 +1,10 @@
 <template>
-    <div class="container service">
+    <div class="service">
 
+        <service-toolbar-component title="Your services" />
 
         <div class="items">
-            <h2>Your Services</h2>
-
-            <span v-for="i in (new Array(3).fill(0))">
+            <span v-for="i in (new Array(2).fill(0))">
                 <VCard class="item">
                     <VCardTitle><span class="icon active"></span>Database (MySql)</VCardTitle>
                     <VCardText>This database is associated with domain [http://site-domain.com]</VCardText>
@@ -17,10 +16,10 @@
             </span>
         </div>
 
+        <service-toolbar-component title="Register service" />
 
         <div class="items">
-            <h2>Services add</h2>
-                <span v-for="i in (new Array(8).fill(0))">
+            <span v-for="i in (new Array(4).fill(0))">
                 <VList two-line subheader>
                     <VListItem>
                     <VListItemContent>
@@ -58,10 +57,15 @@
     }
 </style>
 <script>
+    import ServiceToolbarComponent from '../common/ServiceToolbar';
+
     export default {
         name: 'services-component',
+        components:{
+            'service-toolbar-component': ServiceToolbarComponent,
+        },
         mounted() {
-            console.log('Component mounted.')
+            console.log('Component "Services" mounted.')
         }
     }
 </script>

@@ -13,7 +13,10 @@ const credentialsKeys = {
 export default {
 
     [SET_USER] (state, payload) {
-        state.user = payload
+        Object.keys(payload).forEach((key) => {
+            if (state.user.hasOwnProperty(key))
+                state.user[key] = payload[key];
+        });
     },
 
     [SET_CREDENTIALS] (state, payload) {
