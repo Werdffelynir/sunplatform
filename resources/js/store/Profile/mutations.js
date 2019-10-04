@@ -1,4 +1,6 @@
 
+import defaultState from './state';
+
 export const SET_USER = 'SET_USER';
 export const SET_CSRF = 'SET_CSRF';
 export const SET_CREDENTIALS = 'SET_CREDENTIALS';
@@ -13,24 +15,21 @@ const credentialsKeys = {
 export default {
 
     [SET_USER] (state, payload) {
-        Object.keys(payload).forEach((key) => {
-            if (state.user.hasOwnProperty(key))
-                state.user[key] = payload[key];
-        });
+        if (payload)
+            state.user = {...defaultState.user, ...payload};
+        else
+            state.user = {};
     },
 
     [SET_CREDENTIALS] (state, payload) {
-        const credentials = {};
-        const keys = Object.keys(credentialsKeys);
-        for (let i = 0; i < keys.length; i++) {
-            if (payload[keys[i]]) credentials[keys[i]] = payload[keys[i]];
-            else return false;
-        }
-        state.credentials = credentials;
+        if (payload)
+            state.credentials = {...credentialsKeys, ...payload};
+        else
+            state.credentials = {};
     },
 
     [REMOVE_CREDENTIALS] (state, payload) {
-        state.credentials = null
+        state.credentials = {}
     },
 
     [SET_CSRF] (state, payload) {

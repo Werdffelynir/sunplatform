@@ -14,6 +14,6 @@ export default {
         create_at: '',
     },
     isAuthorizedUser: false,
-    credentials: null,
+    credentials: {},
     csrf: '',
 }

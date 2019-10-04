@@ -1,7 +1,8 @@
 <template>
     <div>
-        <service-toolbar-component title="Profile Settings"/>
-
+        <service-toolbar-component title="Profile Settings">
+            <VBtn v-on:click="saveProfileData">Save</VBtn>
+        </service-toolbar-component>
 
         <VCard>
             <VCardTitle></VCardTitle>
@@ -82,11 +83,10 @@
 <script>
 
     import Avatar from "../common/Avatar";
-    import {SET_USER} from '../../store/Profile/mutations';
     import {getterWithModule} from '../../store/getterWith';
     import {GET_USER} from '../../store/Profile/getters';
-    import {commitWithModule} from '../../store/commitWith';
     import ServiceToolbarComponent from '../common/ServiceToolbar';
+    import {saveUser} from '../../services/profile.service';
 
 
     export default {
@@ -110,17 +110,17 @@
                 },
             };
         },
-        mounted() {},
+        mounted() { },
         methods: {
             saveProfileData() {
                 if (this.userForm.valid) {
-                    commitWithModule('profile', SET_USER, this.user);
+                    saveUser(this.user)
                 }
             },
         },
         computed: {
             user() {
-                return getterWithModule('profile', GET_USER);
+                return {...getterWithModule('profile', GET_USER)};
             },
         },
         components: {
