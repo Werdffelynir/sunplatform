@@ -23,6 +23,19 @@ class DomainsController extends Controller
     }
 
 
+    public function list(Request $request)
+    {
+        $user = Auth::user();
+        $domains = Domains::all()->where('id', $user->id);
+
+
+        return response()->json([
+            'message' => 'Error of creation new domain record',
+            'domains' => $domains,
+            'errors' => !!$domains,
+        ]);
+    }
+
     public function register(Request $request)
     {
         $user = Auth::user();

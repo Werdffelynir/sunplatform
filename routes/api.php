@@ -40,7 +40,7 @@ Route::group(['namespace' => 'Api'], function () {
     });
 
     Route::group(['namespace' => 'Domains'], function () {
-        Route::get('/domains', 'DomainsController')
+        Route::get('/domains', 'DomainsController@list')
             ->middleware('auth:api');
         Route::post('/domains/register', 'DomainsController@register')
             ->middleware('auth:api');
