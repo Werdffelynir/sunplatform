@@ -10,17 +10,19 @@ import AppComponent from './components/App.vue';
 import vuetify from './plugins/vuetify'
 import Requester from './plugins/requester'
 import store from './store';
-import routes from './routes';
+import router from './router/index';
 
 Vue.use(Requester);
 Vue.use(Vuex);
 Vue.use(VueRouter);
 Vue.use(VueAxios, axios);
 
+/*
 const router = new VueRouter({
     mode: 'history',
     routes,
 });
+*/
 
 Vue.config.productionTip = false;
 

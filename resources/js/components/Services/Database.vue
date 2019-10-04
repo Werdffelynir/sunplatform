@@ -14,7 +14,7 @@
     export default {
         name: 'database-component',
         mounted() {
-            console.log('Component mounted.')
+            console.log('Component "Database.vue" mounted.')
         }
     }
 </script>

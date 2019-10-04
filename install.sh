@@ -28,6 +28,8 @@ composer install
 
 npm i
 
+php artisan migrate:refresh
+
 php artisan migrate
 
 php artisan passport:install

@@ -1,4 +1,3 @@
-
 export const serialize = function(obj) {
     const str = [];
     Object.keys(obj).forEach((key)=>{

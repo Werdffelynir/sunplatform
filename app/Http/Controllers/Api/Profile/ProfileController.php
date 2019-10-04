@@ -15,26 +15,19 @@ class ProfileController extends Controller
      * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
      */
-/*    public function __invoke(Request $request)
-    {
-        $credentials = $request->only('email', 'password');
-        $token = Auth::user()->createToken(config('app.name'));
-        // return view('user.profile', ['user' => User::findOrFail($id)]);
-    }*/
 
     public function __invoke(Request $request)
     {
-//        $token = $request->only('token');
+        $token = $request->only('token');
         $token = \request('token');
+        $credentials = $request->only('email', 'password');
 
-//        $credentials = $request->only('email', 'password');
-
-/*        if (!Auth::attempt(['token'=>$token])) {
+        if (!Auth::attempt(['token'=>$token])) {
             return response()->json([
                 'message' => 'You cannot sign with those credentials',
                 'errors' => 'Unauthorised'
             ], 401);
-        }*/
+        }
 
         $credentials = ['token'=>$token];
 
@@ -43,5 +36,43 @@ class ProfileController extends Controller
             '$token' => $token,
             'check' => $request->user(),
         ]);
+    }
+
+    public function update(Request $request)
+    {
+        $id = \request('id');
+        $user = Auth::user();
+        $data = \request([
+            'name',
+            'real_name',
+            'phone',
+            'address',
+            'avatar',
+            'company',
+            'company_spec',
+            'requisites',
+            'currency',
+            'email',
+        ]);
+        $responseData = [
+            'message' => 'Profile is updated',
+            'errors' => false
+        ];
+
+        if ($id && $user->id === $id) {
+            $result = \App\Models\Users::updateOne($data, $id);
+            if (!$result) {
+                $responseData['message'] = 'Profile update have internal error';
+                $responseData['errors'] = true;
+            }
+        } else {
+            $responseData['message'] = 'Identify id not recognized';
+            $responseData['errors'] = true;
+        }
+
+        return response()->json(
+            $responseData,
+            $responseData['errors'] ? 401 : 200
+        );
     }
 }

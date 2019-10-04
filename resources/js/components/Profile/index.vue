@@ -1,114 +1,93 @@
 <template>
-    <VCard>
-        <VCardTitle>Profile Settings</VCardTitle>
-    <VForm v-model="userForm.valid">
-        <VContainer>
-            <VRow>
-                <VCol cols="6" class="text-center">
-                    <avatar-component uploader="on" />
-                </Vcol>
-                <VCol cols="6">
-                    <div class="d-flex">
-                        <VIcon class="pr-2">mdi-email-open-outline</VIcon>
-                    <VTextField
-                        v-model="user.email"
-                        :rules="userForm.emailRules"
-                        :counter="20"
-                        label="E-Mail"
-                        required
-                    ></VTextField>
-                    </div>
-                    <div class="d-flex">
-                        <VIcon class="pr-2">mdi-home-outline</VIcon>
-                    <VTextField
-                        v-model="user.address"
-                        :counter="20"
-                        label="Address"
-                        required
-                    ></VTextField>
-                    </div>
-                    <div class="d-flex">
-                        <VIcon class="pr-2">mdi-phone</VIcon>
-                    <VTextField
-                        v-model="user.phone"
-                        :rules="userForm.phoneRules"
-                        :counter="20"
-                        label="Phone"
-                        required
-                        class="mb-2"
-                    ></VTextField>
-                    </div>
-                    <VBtn v-on:click="saveProfileData">Save</VBtn>
-                </Vcol>
-            </VRow>
-            <VRow>
-                <VCol cols="6">
-                    <div class="d-flex">
-                    <VIcon class="pr-2">mdi-account-outline</VIcon>
-                    <VTextField
-                        v-model="user.name"
-                        :rules="userForm.nameRules"
-                        :counter="20"
-                        label="Nickname"
-                        required
-                    ></VTextField>
-                    </div>
-                    <div class="d-flex">
-                    <VIcon class="pr-2">mdi-account-outline</VIcon>
-                    <VTextField
-                        v-model="user.real_name"
-                        :counter="20"
-                        label="Real Name"
-                        required
-                    ></VTextField>
-                    </div>
-                    <div class="d-flex">
-                        <VIcon class="pr-2">mdi-briefcase-outline</VIcon>
-                    <VTextField
-                        v-model="user.company"
-                        :counter="20"
-                        label="Company"
-                        required
-                    ></VTextField>
-                    </div>
-                    <div class="d-flex">
-                        <VIcon class="pr-2">mdi-briefcase-outline</VIcon>
-                    <VTextField
-                        v-model="user.company_spec"
-                        :counter="20"
-                        label="Company Specialization"
-                        required
-                    ></VTextField>
-                    </div>
-                    <div class="d-flex">
-                        <VIcon class="pr-2">mdi-file-document-box-outline</VIcon>
-                    <VTextField
-                        v-model="user.requisites"
-                        :counter="20"
-                        label="Requisites"
-                        required
-                    ></VTextField>
-                    </div>
-                    <div class="d-flex">
-                        <VIcon class="pr-2">mdi-currency-usd</VIcon>
-                    <VTextField
-                        v-model="user.currency"
-                        :counter="20"
-                        label="Currency"
-                        required
-                    ></VTextField>
-                    </div>
-                </VCol>
-            </VRow>
-        </VContainer>
-    </VForm>
-    </VCard>
+    <div>
+        <service-toolbar-component title="Profile Settings">
+            <VBtn v-on:click="saveProfileData">Save</VBtn>
+        </service-toolbar-component>
+
+        <VCard>
+            <VCardTitle></VCardTitle>
+            <VForm v-model="userForm.valid">
+                <VContainer>
+                    <VRow>
+                        <VCol cols="6" class="text-center">
+                            <avatar-component uploader="on"/>
+                        </Vcol>
+                        <VCol cols="6">
+                            <div class="d-flex">
+                                <VIcon class="pr-2">mdi-email-open-outline</VIcon>
+                                <VTextField label="E-Mail"
+                                            v-model="user.email"
+                                            :rules="userForm.emailRules"
+                                            :counter="28" required></VTextField>
+                            </div>
+                            <div class="d-flex">
+                                <VIcon class="pr-2">mdi-home-outline</VIcon>
+                                <VTextField label="Address"
+                                            v-model="user.address"
+                                            :counter="28"></VTextField>
+                            </div>
+                            <div class="d-flex">
+                                <VIcon class="pr-2">mdi-phone</VIcon>
+                                <VTextField label="Phone"
+                                            v-model="user.phone"
+                                            :rules="userForm.phoneRules" class="mb-2"></VTextField>
+                            </div>
+                        </Vcol>
+                    </VRow>
+                    <VRow>
+                        <VCol cols="6">
+                            <div class="d-flex">
+                                <VIcon class="pr-2">mdi-account-outline</VIcon>
+                                <VTextField label="Nickname"
+                                            v-model="user.name"
+                                            :rules="userForm.requiredRules"
+                                            :counter="24" required></VTextField>
+                            </div>
+                            <div class="d-flex">
+                                <VIcon class="pr-2">mdi-account-outline</VIcon>
+                                <VTextField label="Real Name"
+                                            v-model="user.real_name"></VTextField>
+                            </div>
+                            <div class="d-flex">
+                                <VIcon class="pr-2">mdi-briefcase-outline</VIcon>
+                                <VTextField label="Company"
+                                            v-model="user.company"></VTextField>
+                            </div>
+                            <div class="d-flex">
+                                <VIcon class="pr-2">mdi-briefcase-outline</VIcon>
+                                <VTextField label="Company Specialization"
+                                            v-model="user.company_spec"></VTextField>
+                            </div>
+                            <div class="d-flex">
+                                <VIcon class="pr-2">mdi-file-document-box-outline</VIcon>
+                                <VTextField label="Requisites"
+                                            v-model="user.requisites"></VTextField>
+                            </div>
+                            <div class="d-flex">
+                                <VIcon class="pr-2">mdi-currency-usd</VIcon>
+                                <VTextField label="Currency"
+                                            v-model="user.currency"></VTextField>
+                            </div>
+                        </VCol>
+                    </VRow>
+                    <VRow>
+                        <VCol class="text-right">
+                            <VBtn v-on:click="saveProfileData">Save</VBtn>
+                        </VCol>
+                    </VRow>
+                </VContainer>
+            </VForm>
+        </VCard>
+    </div>
 </template>
 <script>
 
-    import avatar from './../../../assets/images/avatar.png';
-    import { mapMutations } from 'vuex';
     import Avatar from "../common/Avatar";
+    import {getterWithModule} from '../../store/getterWith';
+    import {GET_USER} from '../../store/Profile/getters';
+    import ServiceToolbarComponent from '../common/ServiceToolbar';
+    import {saveUser} from '../../services/profile.service';
+
 
     export default {
         name: 'profile-component',
@@ -117,13 +96,12 @@
             return {
                 userForm: {
                     valid: false,
+                    requiredRules: [
+                        v => !!v || 'Field is required',
+                    ],
                     phoneRules: [
                         v => !!v || 'Phone is required',
                         v => /[\+?\d+\-]+/.test(v) || 'Number must be valid',
-                    ],
-                    nameRules: [
-                        v => !!v || 'Field is required',
-                        // v => v.length >= 10 || 'Name must be more than 10 characters',
                     ],
                     emailRules: [
                         v => !!v || 'E-mail is required',
@@ -132,51 +110,22 @@
                 },
             };
         },
-        mounted() {
-            // console.log(this.user);
-            //
-            // let profiledata = this.$store.getters['profile/getUser'];
-            //
-            // this.name = profiledata.name;
-            // this.email = profiledata.email;
-            // this.real_name = profiledata.real_name;
-            // this.company = profiledata.company;
-            // this.company_spec = profiledata.company_spec;
-            // this.requisites = profiledata.requisites;
-            // this.address = profiledata.address;
-            // this.phone = profiledata.phone;
-            // this.currency = profiledata.currency;
-            // this.avatar = profiledata.avatar;
-        },
+        mounted() { },
         methods: {
-            ...mapMutations('profile', ['addUser']),
-
             saveProfileData() {
-                console.log(
-                    this.userForm, this.user
-                );
                 if (this.userForm.valid) {
-                    this.addUser(this.user)
+                    saveUser(this.user)
                 }
             },
-            onChange (image) {
-                console.log('New picture selected!')
-                if (image) {
-                    console.log('Picture loaded.')
-                    this.image = image
-                } else {
-                    console.log('FileReader API not supported: use the <form>, Luke!')
-                }
-            }
-
         },
         computed: {
             user() {
-                return this.$store.getters['profile/user'];
+                return {...getterWithModule('profile', GET_USER)};
             },
         },
         components: {
             'avatar-component': Avatar,
+            'service-toolbar-component': ServiceToolbarComponent,
         }
-}
+    }
 </script>

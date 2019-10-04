@@ -1,25 +1,25 @@
-import DashboardComponent from './components/Dashboard';
-import ProfileComponent from './components/Profile';
-import DomainsComponent from './components/Domains';
-import DomainsSettingsComponent from './components/Domains/Settings';
-import DomainsRegisterComponent from './components/Domains/Register';
-import ServicesSettingsComponent from './components/Services/Settings';
-import ServicesComponent from './components/Services';
-import LoginComponent from './components/auth/Login.vue';
-import LogoutComponent from './components/auth/Logout.vue';
-import RegisterComponent from './components/auth/Register.vue';
-import EditorComponent from './components/Editor';
+import DashboardComponent from '../components/Dashboard';
+import ProfileComponent from '../components/Profile';
+import DomainsComponent from '../components/Domains';
+import DomainsSettingsComponent from '../components/Domains/Settings';
+import DomainsRegisterComponent from '../components/Domains/Register';
+import ServicesSettingsComponent from '../components/Services/Settings';
+import ServicesComponent from '../components/Services';
+import LoginComponent from '../components/auth/Login.vue';
+import LogoutComponent from '../components/auth/Logout.vue';
+import RegisterComponent from '../components/auth/Register.vue';
+import EditorComponent from '../components/Editor';
 
 
-const routes = [
+export const routes = [
     {
         name: 'Login',
         path: '/login',
         component: LoginComponent },
-    {
+/*    {
         name: 'Logout',
         path: '/logout',
-        component: LogoutComponent },
+        component: LogoutComponent },*/
     {
         name: 'Register',
         path: '/register',
@@ -58,5 +58,3 @@ const routes = [
         path: '/editor',
         component: EditorComponent }
 ];
-
-export default routes;

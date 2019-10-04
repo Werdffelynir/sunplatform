@@ -1,47 +1,24 @@
 <template>
-    <div class="container">
+    <div>
 
-        <VToolbar>
-            <VToolbarTitle>Registered Domains</VToolbarTitle>
-            <div class="flex-grow-1"></div>
-            <VToolbarItems></VToolbarItems>
-            <router-link to="/domains/register">
-            <VBtn icon>
-                <VIcon>mdi-plus-circle</VIcon>
-            </VBtn>
-            </router-link>
-        </VToolbar>
+        <service-toolbar-component
+            title="Registered Domains">
+            <VTooltip bottom>
+                <template v-slot:activator="{ on }">
+                    <router-link to="/domains/register">
+                        <VBtn>
+                            <VIcon color="primary" dark v-on="on">mdi-plus-circle</VIcon>
+                            <span>Add new domain</span>
+                        </VBtn>
+                    </router-link>
+                </template>
+                <span>Add new domain, (Lorem ipsum dolor sit amet.)</span>
+            </VTooltip>
+        </service-toolbar-component>
 
-        <VRow v-for="domain in domains" :key="domain.domain + domain.id">
-            <VCol>
-                <VCard>
-                    <VCardTitle>{{domain.domain}}</VCardTitle>
-                    <VCardText class="pb-0">active: {{domain.active}}</VCardText>
-                    <VCardText class="pt-0 pb-0">created at: {{domain.create_at}}</VCardText>
-                    <VCardText class="pt-0">active to: {{domain.active_to}}</VCardText>
-                    <VDivider></VDivider>
-                    <VCardActions>
-                       <VBtn text v-on:click="navigateToDomainSettings(domain.id)">Settings</VBtn>
-<!--                        <router-link to="domains/settings">Settings</router-link>-->
-                    </VCardActions>
-                </VCard>
-            </VCol>
-            <VCol>
-                <VCard color="#37474F">
-                    <VCardTitle>Services</VCardTitle>
-                    <VDivider></VDivider>
-                    <VRow class="no-gutters" v-for="service in services" :key="service.id">
-                        <VCol>
-                        <VCardActions>
-                            <VBtn text v-on:click="navigateToServiceSettings"><VIcon>mdi-settings</VIcon></VBtn>
-                        </VCardActions>
-                        </VCol>
-                        <VCol><VCardText>{{service.name}}</VCardText></VCol>
-                        <VCol><VCardText>{{service.active}}</VCardText></VCol>
-                    </VRow>
-                </VCard>
-            </VCol>
-        </VRow>
+        <div v-for="domain in domainsList" :key="domain.id" >
+            <domain-settings-component :domain="domain"/>
+        </div>
     </div>
 </template>
 <style>
@@ -49,17 +26,34 @@
         width: 100%;
         padding: 0 2rem 0 1rem;
     }
+    .toolbar-title {
+
+    }
+    .toolbar-title span {
+        font-size: 36px;
+        font-family: "Nunito", "Roboto", sans-serif;
+        padding-left: 10px;
+    }
+    .toolbar-actions {
+        font-size: 30px;
+        padding-left: 10px;
+        padding-right: 20px;
+    }
 </style>
 <script>
 
     import Settings from "./Settings"
     import { mapMutations } from 'vuex';
+    import {GET_DOMAINS_LIST} from '../../store/Domains/getters';
+    import ServiceToolbarComponent from '../common/ServiceToolbar';
+    import DomainSettingsComponent from './Settings';
 
     export default {
         name: 'domains-component',
 
         components: {
-
+            'service-toolbar-component': ServiceToolbarComponent,
+            'domain-settings-component': DomainSettingsComponent,
         },
         data () {
             return {
@@ -67,29 +61,29 @@
             }
         },
         methods: {
-            ...mapMutations('domains', ['setIndex']),
+/*            ...mapMutations('domains', ['setIndex']),
             navigateToDomainSettings(id) {
                 this.$router.push('domains/settings')
                 this.setIndex(id);
             },
             navigateToServiceSettings() {
                 this.$router.push('services/settings')
-            }
+            }*/
         },
         computed: {
-            domains () {
-                return this.$store.getters['domains/getlist']
+            domainsList () {
+                return this.$store.getters['domains/' + GET_DOMAINS_LIST]
             },
-            services () {
-                let getlist = this.$store.getters['domains/getlist'];
-                for (let service of getlist) {
-                   return service.services
-                }
-            }
+            // services () {
+            //     let getlist = this.$store.getters['domains/getlist'];
+            //     for (let service of getlist) {
+            //        return service.services
+            //     }
+            // }
 
         },
         mounted() {
-            console.log('Component mounted.');
+            console.log('Component "Domains" mounted.');
         }
     }
 </script>

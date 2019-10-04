@@ -134,39 +134,39 @@ CREATE TABLE `services_types` (
 
 
 -- =====================
-
-DROP TABLE IF EXISTS `users`;
-CREATE TABLE `users` (
-  `id` int(11) NOT NULL AUTO_INCREMENT,
-  `name` varchar(45) NOT NULL,
-  `email` varchar(45) NOT NULL,
-  `email_verified_at` varchar(45) DEFAULT NULL,
-  `password` varchar(45) NOT NULL,
-  `create_time` timestamp NULL DEFAULT CURRENT_TIMESTAMP,
-  PRIMARY KEY (`id`),
-  UNIQUE KEY `email_UNIQUE` (`email`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
-
-DROP TABLE IF EXISTS `users`;
-CREATE TABLE `users` (
-  `id` bigint(20) unsigned NOT NULL AUTO_INCREMENT,
-  `name` varchar(255) COLLATE utf8mb4_unicode_ci NOT NULL,
-  `real_name` varchar(255) COLLATE utf8mb4_unicode_ci NOT NULL,
-  `company` varchar(255) COLLATE utf8mb4_unicode_ci NOT NULL,
-  `company_spec` varchar(255) COLLATE utf8mb4_unicode_ci NOT NULL,
-  `requisites` varchar(255) COLLATE utf8mb4_unicode_ci NOT NULL,
-  `address` varchar(255) COLLATE utf8mb4_unicode_ci NOT NULL,
-  `phone` varchar(255) COLLATE utf8mb4_unicode_ci NOT NULL,
-  `currency` varchar(255) COLLATE utf8mb4_unicode_ci NOT NULL,
-  `avatar` varchar(255) COLLATE utf8mb4_unicode_ci NOT NULL,
-  `email` varchar(255) COLLATE utf8mb4_unicode_ci NOT NULL,
-  `email_verified_at` timestamp NULL DEFAULT NULL,
-  `password` varchar(255) COLLATE utf8mb4_unicode_ci NOT NULL,
-  `remember_token` varchar(100) COLLATE utf8mb4_unicode_ci DEFAULT NULL,
-  `created_at` timestamp NULL DEFAULT NULL,
-  `updated_at` timestamp NULL DEFAULT NULL,
-  PRIMARY KEY (`id`),
-  UNIQUE KEY `users_email_unique` (`email`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+--
+-- DROP TABLE IF EXISTS `users`;
+-- CREATE TABLE `users` (
+--   `id` int(11) NOT NULL AUTO_INCREMENT,
+--   `name` varchar(45) NOT NULL,
+--   `email` varchar(45) NOT NULL,
+--   `email_verified_at` varchar(45) DEFAULT NULL,
+--   `password` varchar(45) NOT NULL,
+--   `create_time` timestamp NULL DEFAULT CURRENT_TIMESTAMP,
+--   PRIMARY KEY (`id`),
+--   UNIQUE KEY `email_UNIQUE` (`email`)
+-- ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
+--
+-- DROP TABLE IF EXISTS `users`;
+-- CREATE TABLE `users` (
+--   `id` bigint(20) unsigned NOT NULL AUTO_INCREMENT,
+--   `name` varchar(255) COLLATE utf8mb4_unicode_ci NOT NULL,
+--   `real_name` varchar(255) COLLATE utf8mb4_unicode_ci NOT NULL,
+--   `company` varchar(255) COLLATE utf8mb4_unicode_ci NOT NULL,
+--   `company_spec` varchar(255) COLLATE utf8mb4_unicode_ci NOT NULL,
+--   `requisites` varchar(255) COLLATE utf8mb4_unicode_ci NOT NULL,
+--   `address` varchar(255) COLLATE utf8mb4_unicode_ci NOT NULL,
+--   `phone` varchar(255) COLLATE utf8mb4_unicode_ci NOT NULL,
+--   `currency` varchar(255) COLLATE utf8mb4_unicode_ci NOT NULL,
+--   `avatar` varchar(255) COLLATE utf8mb4_unicode_ci NOT NULL,
+--   `email` varchar(255) COLLATE utf8mb4_unicode_ci NOT NULL,
+--   `email_verified_at` timestamp NULL DEFAULT NULL,
+--   `password` varchar(255) COLLATE utf8mb4_unicode_ci NOT NULL,
+--   `remember_token` varchar(100) COLLATE utf8mb4_unicode_ci DEFAULT NULL,
+--   `created_at` timestamp NULL DEFAULT NULL,
+--   `updated_at` timestamp NULL DEFAULT NULL,
+--   PRIMARY KEY (`id`),
+--   UNIQUE KEY `users_email_unique` (`email`)
+-- ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 
 -- 2019-09-24 18:37:48

@@ -51,13 +51,15 @@
             </h2>
             <VBtn color="pink" text @click="snackbar = errorMessages = successMessages = false">Close</VBtn>
         </VSnackbar>
+
     </VCard>
 </template>
 <style>
 
 </style>
 <script>
-    import { requestPost } from '../../utils/request';
+    import { requestPost } from '../../util/request';
+    import {makeLogin} from '../../services/auth.service';
 
     export default {
 
@@ -87,7 +89,7 @@
         },
 
         methods: {
-            send () {
+            send() {
                 const data = {
                     email: this.email,
                     password: this.password,
@@ -95,41 +97,18 @@
                 };
 
                 if (this.valid && !this.snackbar) {
-                    requestPost('/api/login', data)
-                        .then(response => {
-                            this.mutationsAddCredentials(response);
-
-                            if (response && this.gettersIsAuthorizedUser()) {
-                                this.show = false;
-                                this.snackbar = true;
-                                this.successMessages = 'Gracia Login is success. Welcome to system.';
-
-                                setTimeout(()=>
-                                    this.$router.push('/'),3000);
-                            }
-                            // console.log('profile/isAuthorizedUser:', this.gettersIsAuthorizedUser());
-                        })
-                        .catch(error => {
-                            this.snackbar = true;
-                            this.errorMessages = 'Something wrong, please try later'
-                        });
+                    makeLogin(data);
                 } else {
-                    if (this.email.length === 0){
+                    if (this.email.length === 0) {
                         this.snackbar = true;
                         this.errorMessages = 'Email is required';
                     }
-                    if (this.password.length === 0){
+                    if (this.password.length === 0) {
                         this.snackbar = true;
                         this.errorMessages = 'Password is required';
                     }
                 }
             },
-
-            // getters
-            gettersIsAuthorizedUser() {return this.$store.getters['profile/isAuthorizedUser']},
-
-            // mutations
-            mutationsAddCredentials(payload) {this.$store.commit('profile/addCredentials', payload)},
         },
 
         mounted() {},

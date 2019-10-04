@@ -77,8 +77,8 @@
 </style>
 <script>
 
-    import { requestPost } from '../../utils/request';
-    import StringGenerate from '../../utils/StringGenerate';
+    import { requestPost } from '../../util/request';
+    import StringGenerate from '../../util/StringGenerate';
 
 
     const strGenName = (new StringGenerate()).syllables(8);

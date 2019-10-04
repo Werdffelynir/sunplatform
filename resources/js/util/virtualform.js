@@ -27,7 +27,7 @@ const createVirtualForm = () => {
                     }
 
                 });
-                    callback.call(eve, input.files, err, errTypes);
+                callback.call(eve, input.files, err, errTypes);
             });
         },
     }

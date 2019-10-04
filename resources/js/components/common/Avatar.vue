@@ -1,4 +1,4 @@
-<template id="default-template">
+<template id="avatar-template">
 
     <div class="text-center">
         <VAvatar size="130">
@@ -7,12 +7,8 @@
         </VAvatar>
         <div v-if="fileIsError" class="errors-messages">
             <div v-for="type in fileErrorTypes">
-                <div v-if="type === 'types'">
-                    types - Lorem ipsum dolor sit amet.
-                </div >
-                <div v-if="type === 'size'">
-                    size - Lorem ipsum dolor sit amet.
-                </div >
+                <div v-if="type === 'types'">Error with file type</div >
+                <div v-if="type === 'size'">Error with file size</div >
             </div>
         </div>
 
@@ -31,9 +27,13 @@
         cursor: pointer;
     }
     .update-images span {
-        cursor: pointer;
-        position: relative;
-        top: -8px;
+        position: absolute;
+        top: 24px;
+        left: 36px;
+        color: darkorange;
+        font-size: 13px;
+        font-family: monospace;
+        text-transform: uppercase;
     }
     .errors-messages {
         padding-top: 50px;
@@ -42,61 +42,51 @@
 </style>
 <script>
     import avatarImages from '../../../assets/images/avatar.png';
-    import createVirtualForm from "../../utils/virtualform";
+    import createVirtualForm from "../../util/virtualform";
+    import {GET_USER} from '../../store/Profile/getters';
+    import {SET_USER} from '../../store/Profile/mutations';
+    import {getterWithModule} from '../../store/getterWith';
+    import {commitWithModule} from '../../store/commitWith';
 
     export default {
         template: '#avatar-template',
-
         name: 'avatar-component',
-
         props: ['uploader'],
-
-        mounted() {
-            console.log('Component mounted.')
-        },
+        mounted() {},
         data() {
             return {
                 fileIsError: false,
                 fileErrorTypes: [],
                 displayToggle: 'block'
             }
-    },
+        },
         computed: {
             avatar() {
-                return this.$store.getters['profile/user'].avatar || avatarImages;
+                const profile = getterWithModule('profile', GET_USER);
+                if (profile && profile.avatar) {
+                    const img = new Image();
+                    img.src = profile.avatar;
+                    return img.src;
+                } else
+                    return avatarImages;
             }
-
         },
         methods: {
             update() {
+                const reader = new FileReader();
                 const form = createVirtualForm();
-
-
                 form.selectFile((files, err, errTypes) => {
-                    // const form = new FormData();
-                    // form.append('file', JSON.stringify(files));
                     this.fileIsError = err;
                     this.fileErrorTypes = errTypes;
-
-
-                    const reader = new FileReader();
                     if (!err) {
                         reader.onloadend = () => {
-
-                            this.$store.commit('profile/addUser', {
+                            commitWithModule('profile', SET_USER, {
                                 avatar: reader.result,
                             });
-
                         };
-                    };
+                    }
                     reader.readAsDataURL(files[0]);
-                    // this.displayToggle = 'none'
-                    console.log(err, errTypes, files);
                 })
-
-
-
-
             }
         }
     }

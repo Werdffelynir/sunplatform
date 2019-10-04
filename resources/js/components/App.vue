@@ -1,5 +1,4 @@
 <template>
-
     <VApp>
         <div v-if="isAuth">
             <VNavigationDrawer app clipped-x :width="sidebar ? 250 : 0">
@@ -17,7 +16,7 @@
             </VAppBar>
         </div>
 
-        <VContent class="content-main">
+        <VContent class="content-main pr-4">
             <VContainer class="container-main" fluid>
                 <router-view></router-view>
             </VContainer>
@@ -27,14 +26,18 @@
             <div class="copy text-right"><span>SunLight</span> Development &copy; 2019 </div>
         </VFooter>
 
+        <notification-component />
+
     </VApp>
 </template>
 
 
 <script>
+    import NotificationComponent from './common/Notification.vue';
     import SidebarComponent from './common/Sidebar.vue';
     import MenuComponent from './common/Menu.vue';
-    import { URL_GET_USER } from '../api';
+    import {getCredentials, hasUserCredentials, init} from '../services/auth.service';
+    import {setNotificationWithError} from '../services/base.service';
 
     export default {
         name: 'app-component',
@@ -42,47 +45,32 @@
         props: ['csrf'],
 
         mounted () {
-
-            // todo: init app. need replace to separate module
-            this.$store.subscribe((payload, state) => {
-                if(payload.type === "profile/addCredentials") {
-                    this.$requester.get(URL_GET_USER).then((response)=>{
-                        this.$store.commit('profile/addUser', response );
-                    }).catch((err)=>{console.log('err', err)})
-                }
-            });
-            const credentials = JSON.parse(localStorage.getItem('credentials'));
-            if (credentials) {
-                this.$requester.credentials( credentials );
-                this.$store.commit('profile/addCredentials', credentials );
-
-            }
+            init();
         },
 
         data (vueAppComponent) {
             return {
-                columns: [...new Array(16)],
                 sidebar: true,
             };
         },
 
         methods: {
             sidebarToggle() {
-                this.sidebar = !this.sidebar;
+                setNotificationWithError('Free space desktop');
+                this.sidebar = !this.sidebar
             },
         },
 
         watch: {},
 
         computed: {
-
-            // getters
-            isAuth() { return true;
-            //!!this.$store.getters['profile/credentials'].token
+            isAuth() {
+                return hasUserCredentials()
             },
         },
 
         components: {
+            'notification-component': NotificationComponent,
             'sidebar-component': SidebarComponent,
             'menu-component': MenuComponent,
         },

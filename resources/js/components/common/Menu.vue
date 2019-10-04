@@ -26,9 +26,9 @@
                 <VBtn text>register</VBtn>
             </router-link>
 
-            <router-link to="/logout" @click="logout">
+            <a href="/" v-on:click="logout">
                 <VBtn text>logout</VBtn>
-            </router-link>
+            </a>
         </VToolbarItems>
 
     </div>
@@ -37,7 +37,7 @@
 <script>
 
     import '../../../sass/components/menu.scss';
-    import { requestPost } from '../../utils/request';
+    import {makeLogout} from '../../services/auth.service';
 
     export default {
 
@@ -50,16 +50,10 @@
         },
 
         methods: {
-            logout (){
-                localStorage.removeItem('credentials')
-/*                const token = this.$store.getters['profile/token'];
-                if (token.length > 20) {
-                    // postData('/logout', {
-                    //     _token: token,
-                    // }).then(data => {
-                    //     location.href = '/login';
-                    // }).catch(error => {console.log('ERROR:', error)});
-                }*/
+            logout(e) {
+                e.preventDefault();
+                e.stopPropagation();
+                makeLogout()
             },
         },
     }
