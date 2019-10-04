@@ -47,6 +47,7 @@
     import {GET_DOMAINS_LIST} from '../../store/Domains/getters';
     import ServiceToolbarComponent from '../common/ServiceToolbar';
     import DomainSettingsComponent from './Settings';
+    import {loadUserDomains} from '../../services/domains.service';
 
     export default {
         name: 'domains-component',
@@ -57,7 +58,7 @@
         },
         data () {
             return {
-
+                domainsList: [],
             }
         },
         methods: {
@@ -71,7 +72,8 @@
             }*/
         },
         computed: {
-            domainsList () {
+            domains () {
+                loadUserDomains();
                 return this.$store.getters['domains/' + GET_DOMAINS_LIST]
             },
             // services () {
