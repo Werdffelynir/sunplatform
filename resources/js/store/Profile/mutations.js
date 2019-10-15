@@ -6,11 +6,11 @@ export const SET_CSRF = 'SET_CSRF';
 export const SET_CREDENTIALS = 'SET_CREDENTIALS';
 export const REMOVE_CREDENTIALS = 'REMOVE_CREDENTIALS';
 
-const credentialsKeys = {
-    expires_at: null,
-    token: null,
-    token_type: null,
-};
+// export const credentialsKeys = {
+//     expires_at: null,
+//     token: null,
+//     token_type: null,
+// };
 
 export default {
 
@@ -23,7 +23,7 @@ export default {
 
     [SET_CREDENTIALS] (state, payload) {
         if (payload)
-            state.credentials = {...credentialsKeys, ...payload};
+            state.credentials = {...defaultState.credentials, ...payload};
         else
             state.credentials = {};
     },

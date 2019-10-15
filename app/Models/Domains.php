@@ -12,6 +12,12 @@ class Domains extends Model
 
     protected $table = 'domains';
 
+
+    public function user()
+    {
+        return $this->belongsTo('App\User', 'id_user');
+    }
+
     public static function create($data) {
         DB::beginTransaction();
 

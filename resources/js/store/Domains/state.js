@@ -19,6 +19,6 @@ const DOMAIN = {
 export default {
     item: '',
     info: '',
-    list: DOMAIN_LIST,
+    list: [],
     current: {},
 }

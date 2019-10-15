@@ -36,7 +36,7 @@
     import NotificationComponent from './common/Notification.vue';
     import SidebarComponent from './common/Sidebar.vue';
     import MenuComponent from './common/Menu.vue';
-    import {getCredentials, hasUserCredentials, init} from '../services/auth.service';
+    import {getCredentials, isAuthorized, init} from '../services/auth.service';
     import {setNotificationWithError} from '../services/base.service';
 
     export default {
@@ -65,7 +65,7 @@
 
         computed: {
             isAuth() {
-                return hasUserCredentials()
+                return isAuthorized()
             },
         },
 

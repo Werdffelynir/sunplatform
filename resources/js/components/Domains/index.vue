@@ -1,6 +1,5 @@
 <template>
     <div>
-
         <service-toolbar-component
             title="Registered Domains">
             <VTooltip bottom>
@@ -16,9 +15,11 @@
             </VTooltip>
         </service-toolbar-component>
 
-        <div v-for="domain in domainsList" :key="domain.id" >
+        <div v-for="domain in domains" :key="domain.id" >
+            <h1>{{domain.id}}}</h1>
             <domain-settings-component :domain="domain"/>
         </div>
+
     </div>
 </template>
 <style>
@@ -26,9 +27,7 @@
         width: 100%;
         padding: 0 2rem 0 1rem;
     }
-    .toolbar-title {
-
-    }
+    .toolbar-title { }
     .toolbar-title span {
         font-size: 36px;
         font-family: "Nunito", "Roboto", sans-serif;
@@ -47,6 +46,8 @@
     import {GET_DOMAINS_LIST} from '../../store/Domains/getters';
     import ServiceToolbarComponent from '../common/ServiceToolbar';
     import DomainSettingsComponent from './Settings';
+    import {loadUserDomainsService} from '../../services/domains.service';
+    import {getterWithModule} from '../../store/getterWith';
 
     export default {
         name: 'domains-component',
@@ -57,7 +58,7 @@
         },
         data () {
             return {
-
+                domainsList: [],
             }
         },
         methods: {
@@ -71,19 +72,12 @@
             }*/
         },
         computed: {
-            domainsList () {
-                return this.$store.getters['domains/' + GET_DOMAINS_LIST]
+            domains () {
+                return getterWithModule('domains', GET_DOMAINS_LIST);
             },
-            // services () {
-            //     let getlist = this.$store.getters['domains/getlist'];
-            //     for (let service of getlist) {
-            //        return service.services
-            //     }
-            // }
-
         },
         mounted() {
-            console.log('Component "Domains" mounted.');
+            loadUserDomainsService();
         }
     }
 </script>
