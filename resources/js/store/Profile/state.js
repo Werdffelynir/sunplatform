@@ -1,6 +1,6 @@
 export default {
     user: {
-        id: '',
+        id: null,
         name: '',
         real_name: '',
         company: '',
@@ -14,6 +14,10 @@ export default {
         create_at: '',
     },
     isAuthorizedUser: false,
-    credentials: {},
+    credentials: {
+        expires_at: null,
+        token: null,
+        token_type: null,
+    },
     csrf: '',
 }

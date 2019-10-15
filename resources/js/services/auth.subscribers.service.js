@@ -5,6 +5,7 @@ import {commitWith} from '../store/commitWith';
 import {subscribeTo} from '../store/subscribeTo';
 
 export const subscribersStart = function () {
+
     subscribeTo('profile/' + SET_CREDENTIALS, (type, state) => {
         Vue.requesterGET(URL_GET_USER).then((response)=>{
             commitWith('profile/' + SET_USER, response);
@@ -12,4 +13,5 @@ export const subscribersStart = function () {
             console.log('Service subscribersStart "auth.subscribers.service.js" throw error: ', err.message());
         })
     });
+
 };

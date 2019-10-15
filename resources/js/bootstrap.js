@@ -1,10 +1,10 @@
-import lodash from 'lodash';
-import axios from 'axios';
+// import lodash from 'lodash';
+// import axios from 'axios';
 import Vue from 'vue';
 import Vuex from 'vuex';
 
 import VueRouter from 'vue-router';
-import VueAxios from 'vue-axios';
+// import VueAxios from 'vue-axios';
 
 import AppComponent from './components/App.vue';
 import vuetify from './plugins/vuetify'
@@ -15,7 +15,7 @@ import router from './router/index';
 Vue.use(Requester);
 Vue.use(Vuex);
 Vue.use(VueRouter);
-Vue.use(VueAxios, axios);
+// Vue.use(VueAxios, axios);
 
 /*
 const router = new VueRouter({
