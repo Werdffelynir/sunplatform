@@ -3,8 +3,8 @@ import {URL_GET_DOMAINS} from '../api';
 import {commitWithModule} from '../store/commitWith';
 import {SET_DOMAINS_LIST} from '../store/Domains/mutations';
 
-export const loadUserDomains = function () {
-    Vue.requesterGET(URL_GET_DOMAINS).then((response)=>{
+export const loadUserDomainsService = function () {
+    Vue.requesterGET(URL_GET_DOMAINS).then((response) => {
         console.log('Service loadUserDomains response::', response);
         if (response.error) {
             // todo: ErrorWrapper
