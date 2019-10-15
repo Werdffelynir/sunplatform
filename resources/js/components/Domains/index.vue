@@ -48,6 +48,7 @@
     import ServiceToolbarComponent from '../common/ServiceToolbar';
     import DomainSettingsComponent from './Settings';
     import {loadUserDomains} from '../../services/domains.service';
+    import {getterWithModule} from '../../store/getterWith';
 
     export default {
         name: 'domains-component',
@@ -73,8 +74,13 @@
         },
         computed: {
             domains () {
+                // this.domainsList = getterWithModule('domains', GET_DOMAINS_LIST);
+                this.domainsList = this.$store.getters['domains/GET_DOMAINS_LIST'];
+                // if (this.domainsList && !this.domainsList.length)
+                console.log('>>>', this.$store.getters['domains/GET_DOMAINS_LIST']);
+                // this.$store.getters['domains/' + ];
                 loadUserDomains();
-                return this.$store.getters['domains/' + GET_DOMAINS_LIST]
+                // return this.$store.getters['domains/GET_DOMAINS_LIST'];
             },
             // services () {
             //     let getlist = this.$store.getters['domains/getlist'];

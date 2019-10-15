@@ -7,6 +7,7 @@ use \Illuminate\Support\Facades\Auth;
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 use \App\Models\Domains;
+use Illuminate\Support\Facades\DB;
 
 class DomainsController extends Controller
 {
@@ -22,18 +23,30 @@ class DomainsController extends Controller
 //        $token = Auth::user()->createToken(config('app.name'));
     }
 
-
     public function list(Request $request)
     {
         $user = Auth::user();
-        $domains = Domains::all()->where('id', $user->id);
+        $domains = DB::table('domains as d')
+            ->select(['d.*', 'dt.status', 'dt.id_user', 'dt.id_service'])
+            ->leftJoin('domains_types as dt', 'd.id', '=', 'dt.id_domain')
+            ->leftJoin('users as u', 'u.id', '=', 'dt.id_user')
+            ->where('u.id', $user->id)
+            ->get();
 
+        $responseData = [
+            'message' => 'List of domains is upload',
+            'errors' => false
+        ];
 
-        return response()->json([
-            'message' => 'Error of creation new domain record',
-            'domains' => $domains,
-            'errors' => !!$domains,
-        ]);
+        if ($domains) {
+            unset($responseData['errors']);
+            $responseData['list'] = $domains;
+        } else {
+            $responseData['message'] = 'Internal error';
+            $responseData['errors'] = true;
+        }
+
+        return response()->json($responseData);
     }
 
     public function register(Request $request)
