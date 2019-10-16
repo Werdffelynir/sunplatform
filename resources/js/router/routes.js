@@ -1,7 +1,8 @@
 import DashboardComponent from '../components/Dashboard';
 import ProfileComponent from '../components/Profile';
 import DomainsComponent from '../components/Domains';
-import DomainItemComponent from '../components/Domains/DomainItem';
+// import DomainItemComponent from '../components/Domains/Item';
+import DomainBlankComponent from '../components/Domains/Blank';
 import DomainsRegisterComponent from '../components/Domains/Register';
 import ServicesSettingsComponent from '../components/Services/Settings';
 import ServicesComponent from '../components/Services';
@@ -16,10 +17,6 @@ export const routes = [
         name: 'Login',
         path: '/login',
         component: LoginComponent },
-/*    {
-        name: 'Logout',
-        path: '/logout',
-        component: LogoutComponent },*/
     {
         name: 'Register',
         path: '/register',
@@ -28,10 +25,16 @@ export const routes = [
         name: 'Dashboard',
         path: '/',
         component: DashboardComponent },
+
+    /* ---- Profile ---- */
+
     {
         name: 'Profile',
         path: '/profile',
         component: ProfileComponent },
+
+    /* ---- Domains ---- */
+
     {
         name: 'Domains',
         path: '/domains',
@@ -41,18 +44,20 @@ export const routes = [
         path: '/domains/register',
         component: DomainsRegisterComponent },
     {
-        name: 'DomainItem',
-        path: '/domains/item',
-        props: true,
-        component: DomainItemComponent },
-    {
-        name: 'ServicesSettings',
-        path: '/services/settings',
-        component: ServicesSettingsComponent },
+        name: 'DomainBlank',
+        path: '/domains/settings/:id',
+        component: DomainBlankComponent },
+
+    /* ---- Services ---- */
+
     {
         name: 'Services',
         path: '/services',
         component: ServicesComponent },
+    {
+        name: 'ServicesSettings',
+        path: '/services/settings',
+        component: ServicesSettingsComponent },
     {
         name: 'Editor',
         path: '/editor',

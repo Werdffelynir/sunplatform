@@ -14,6 +14,8 @@ use \Illuminate\Support\Facades\Route;
 |
 */
 
+//'/domains/{option?}/{id?}',
+
 $ROUTERS = [
     '/',
     '/home',
@@ -24,7 +26,7 @@ $ROUTERS = [
     '/profile/register',
     '/domains',
     '/domains/register',
-    '/domains/settings',
+    '/domains/settings/id',
     '/services',
     '/services/register',
     '/services/item',

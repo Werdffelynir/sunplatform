@@ -96,7 +96,7 @@
         props: ['domain'],
 
         mounted() {
-            console.log('Component "Domains/Register.vue" mounted.')
+            console.log('Component "domain-blank-component" mounted.')
         },
 
         computed: {
@@ -106,6 +106,8 @@
         },
 
         data() {
+            console.log(this.$route.params);
+
             return {
                 valid: false,
                 active: true,
@@ -117,7 +119,9 @@
                 ],
             };
         },
+
         methods: {
+
             register() {
                 const data = {
                     address: this.address,
@@ -127,6 +131,20 @@
                 if (this.valid) {
                     this.$requester.post('/api/domains/register', data).then((response) => {
                         console.log('Register domains data/response:', data, response);
+                    });
+                }
+            },
+
+
+            update() {
+                const data = {
+                    address: this.address,
+                    active: this.active,
+                };
+
+                if (this.valid) {
+                    this.$requester.post('/api/domains/update', data).then((response) => {
+                        console.log('Register domains data/update:', data, response);
                     });
                 }
             },

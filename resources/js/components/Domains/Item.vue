@@ -42,11 +42,42 @@
             </VRow>
         </VCardText>
         <VCardActions>
-            <VBtn primary >Edit Settings</VBtn>
+            <router-link :to="'/domains/settings/' + domain.id">
+                <VBtn primary >Edit Settings</VBtn>
+            </router-link>
             <VBtn text>Off (all services will be turn down)</VBtn>
         </VCardActions>
     </VCard>
 </template>
+<script>
+    import {getterWithModule} from '../../store/getterWith';
+    import {GET_USER} from '../../store/Profile/getters';
+
+    export default {
+        name: 'domain-item-component',
+        props: ['domain'],
+        mounted() {},
+        data() {
+            return {};
+        },
+        methods: {},
+        computed: {
+            user () {
+                return getterWithModule('profile', GET_USER);
+            },
+        },
+    }
+
+/*
+actived_to: null
+address: "your-domain.com"
+created_at: "2019-10-02 18:42:31"
+id: 1
+id_service: null
+id_user: 3
+status: 1
+*/
+</script>
 <style>
     .domain {
         margin-bottom: 20px;
@@ -72,33 +103,3 @@
         list-style: none;
     }
 </style>
-<script>
-    import {getterWithModule} from '../../store/getterWith';
-    import {GET_USER} from '../../store/Profile/getters';
-
-    export default {
-        name: 'domain-item-component',
-        props: ['domain'],
-        mounted() {},
-        data() {
-            return {};
-        },
-        methods: {},
-        computed: {
-            user () {
-                return getterWithModule('profile', GET_USER);
-            },
-
-        },
-    }
-
-/*
-actived_to: null
-address: "your-domain.com"
-created_at: "2019-10-02 18:42:31"
-id: 1
-id_service: null
-id_user: 3
-status: 1
-*/
-</script>
