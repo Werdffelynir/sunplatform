@@ -1,7 +1,7 @@
 import DashboardComponent from '../components/Dashboard';
 import ProfileComponent from '../components/Profile';
 import DomainsComponent from '../components/Domains';
-import DomainsSettingsComponent from '../components/Domains/Settings';
+import DomainItemComponent from '../components/Domains/DomainItem';
 import DomainsRegisterComponent from '../components/Domains/Register';
 import ServicesSettingsComponent from '../components/Services/Settings';
 import ServicesComponent from '../components/Services';
@@ -41,10 +41,10 @@ export const routes = [
         path: '/domains/register',
         component: DomainsRegisterComponent },
     {
-        name: 'DomainsSettings',
-        path: '/domains/settings',
+        name: 'DomainItem',
+        path: '/domains/item',
         props: true,
-        component: DomainsSettingsComponent },
+        component: DomainItemComponent },
     {
         name: 'ServicesSettings',
         path: '/services/settings',

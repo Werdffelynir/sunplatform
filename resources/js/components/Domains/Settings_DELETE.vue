@@ -1,8 +1,8 @@
 <template>
     <VCard class="domain">
         <VCardTitle>
-            <span :class="'icon active' + (domain.active ? '':' off')"></span>
-            <span class="address">http://user-domain.com</span>
+            <span :class="'icon active' + (domain.status ? '':' off')"></span>
+            <span class="address">{{domain.address}}</span>
         </VCardTitle>
         <VCardText>
             <VRow>
@@ -16,8 +16,8 @@
                             <span v-if="domain.active">[ACTIVE]</span>
                             <span v-else>[OFFLINE]</span>
                         </li>
-                        <li><VIcon>mdi-menu-right</VIcon><strong>Limit date:</strong> {{domain.active_to}} </li>
-                        <li><VIcon>mdi-menu-right</VIcon><strong>Created date:</strong> {{domain.create_at}} </li>
+                        <li><VIcon>mdi-menu-right</VIcon><strong>Limit date:</strong> {{domain.actived_to}} </li>
+                        <li><VIcon>mdi-menu-right</VIcon><strong>Created date:</strong> {{domain.created_at}} </li>
                     </ul>
                 </VCol>
                 <VCol cols="6">
@@ -77,6 +77,10 @@
         name: 'domain-settings-component',
         props: ['domain'],
         mounted() {},
+        data() {
+            console.log('domain', this.domain);
+            return {};
+        },
         methods: {},
         computed: {
             user () {
@@ -85,4 +89,14 @@
 
         },
     }
+
+/*
+actived_to: null
+address: "your-domain.com"
+created_at: "2019-10-02 18:42:31"
+id: 1
+id_service: null
+id_user: 3
+status: 1
+*/
 </script>

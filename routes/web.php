@@ -27,7 +27,7 @@ $ROUTERS = [
     '/domains/settings',
     '/services',
     '/services/register',
-    '/services/settings',
+    '/services/item',
     '/editor',
 ];
 

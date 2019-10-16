@@ -4,7 +4,7 @@ import $router from '../router/index'
 import Vue from 'vue';
 import {URL_GET_USER, URL_POST_LOGIN} from '../api';
 import {commitWith, commitWithModule} from '../store/commitWith';
-import {subscribersStart} from './auth.subscribers.service';
+import {subscribersStart} from './subscribers.service';
 import {GET_CREDENTIALS, GET_USER} from '../store/Profile/getters';
 import {SET_CREDENTIALS, SET_USER} from '../store/Profile/mutations';
 import {getterWithModule} from '../store/getterWith';

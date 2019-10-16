@@ -16,8 +16,7 @@
         </service-toolbar-component>
 
         <div v-for="domain in domains" :key="domain.id" >
-            <h1>{{domain.id}}}</h1>
-            <domain-settings-component :domain="domain"/>
+            <domain-item-component :domain="domain"/>
         </div>
 
     </div>
@@ -41,11 +40,10 @@
 </style>
 <script>
 
-    import Settings from "./Settings"
     import { mapMutations } from 'vuex';
     import {GET_DOMAINS_LIST} from '../../store/Domains/getters';
     import ServiceToolbarComponent from '../common/ServiceToolbar';
-    import DomainSettingsComponent from './Settings';
+    import DomainItemComponent from './Item';
     import {loadUserDomainsService} from '../../services/domains.service';
     import {getterWithModule} from '../../store/getterWith';
 
@@ -54,7 +52,7 @@
 
         components: {
             'service-toolbar-component': ServiceToolbarComponent,
-            'domain-settings-component': DomainSettingsComponent,
+            'domain-item-component': DomainItemComponent,
         },
         data () {
             return {
